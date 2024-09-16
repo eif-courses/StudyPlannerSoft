@@ -1,12 +1,13 @@
 ﻿using FastEndpoints;
 using StudyPlannerSoft.Data;
+using StudyPlannerSoft.Dto;
 using StudyPlannerSoft.Entities;
 
 namespace StudyPlannerSoft.Features.StudyPlan.Subjects;
 
-internal sealed record CreateSubjectRequest(Subject Subject);
 
-internal sealed class CreateSubject : Endpoint<CreateSubjectRequest>
+
+internal sealed class CreateSubject : Endpoint<SubjectDto>
 {
     
     private readonly MyDatabaseContext _context;
@@ -22,9 +23,16 @@ internal sealed class CreateSubject : Endpoint<CreateSubjectRequest>
         AllowAnonymous();
     }
 
-    public override async Task HandleAsync(CreateSubjectRequest req, CancellationToken ct)
+    public override async Task HandleAsync(SubjectDto req, CancellationToken ct)
     {
-        await _context.Subjects.AddAsync(req.Subject, ct);
+        
+        var subject = new Subject
+        {
+            Title = req.Title,
+            Description = req.Description
+        };
+        
+        await _context.Subjects.AddAsync(subject, ct);
         await _context.SaveChangesAsync(ct);
         
         await SendAsync(new { Message = "Subject created successfully" }, 201, ct);

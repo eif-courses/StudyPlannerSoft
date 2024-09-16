@@ -1,4 +1,4 @@
-﻿namespace StudyPlannerSoft.Features.Import;
+﻿namespace StudyPlannerSoft.Features.Imports;
 
 public class ImportLecturerActivities
 {

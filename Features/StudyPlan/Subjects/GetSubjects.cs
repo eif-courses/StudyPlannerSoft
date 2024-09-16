@@ -43,7 +43,9 @@ internal sealed class GetSubjectsMapper : ResponseMapper<List<SubjectDto>, List<
     {
         return e.Select(subject => new SubjectDto
         {
-            Title = subject.Title
+            Id = subject.Id,
+            Title = subject.Title,
+            Description = subject.Description
         }).ToList();
     }
 }
