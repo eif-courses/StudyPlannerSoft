@@ -10,14 +10,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<MyDatabaseContext>(options => { options.UseSqlite("Data Source=MyDatabase.db"); });
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-    .AddEntityFrameworkStores<MyDatabaseContext>();
+    .AddEntityFrameworkStores<MyDatabaseContext>()
+    .AddDefaultTokenProviders();
 
-builder.Services
-    .AddAuthenticationCookie(validFor: TimeSpan.FromMinutes(60))
-    .AddAuthorization()
-    .AddFastEndpoints()
-    .SwaggerDocument();
-
+builder.Services.AddAuthenticationCookie(validFor: TimeSpan.FromMinutes(60));
+builder.Services.AddAuthorization();
+builder.Services.AddFastEndpoints();
+builder.Services.SwaggerDocument();
 
 builder.Services.AddCors(options =>
 {
@@ -30,13 +29,19 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-app.UseAuthentication()
-    .UseAuthorization()
-    .UseFastEndpoints()
-    .UseSwaggerGen();
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+    await SeedData.Initialize(userManager, roleManager);
+}
 
 app.UseHttpsRedirection();
-
 app.UseCors("AllowSpecificOrigin");
+app.UseAuthentication();
+app.UseAuthorization();
+app.UseFastEndpoints();
+app.UseSwaggerGen();
 
 app.Run();
