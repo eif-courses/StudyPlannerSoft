@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using StudyPlannerSoft.Entities;
 
 namespace StudyPlannerSoft.Data;
 
-public class MyDatabaseContext: DbContext
+public class MyDatabaseContext: IdentityDbContext
 {
     
     
