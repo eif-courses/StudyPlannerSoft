@@ -163,31 +163,85 @@ public class MyDatabaseContext(DbContextOptions<MyDatabaseContext> options) : Id
             {
                 Id = Ulid.NewUlid(),
                 Name = "Programinės įrangos testavimas",
+                StudyType = StudyType.Normal,
                 DepartmentId = departmentEifIds[2]
             },
             new StudyProgram
             {
                 Id = Ulid.NewUlid(),
                 Name = "Elektronikos inžinerija",
-                DepartmentId = departmentEifIds[0]
+                DepartmentId = departmentEifIds[0],
+                StudyType = StudyType.Normal
+            },
+            new StudyProgram
+            {
+                Id = Ulid.NewUlid(),
+                Name = "Elektronikos inžinerija",
+                DepartmentId = departmentEifIds[0],
+                StudyType = StudyType.Sessions,
             },
             new StudyProgram
             {
                 Id = Ulid.NewUlid(),
                 Name = "Informacijos sistemos",
-                DepartmentId = departmentEifIds[1]
+                DepartmentId = departmentEifIds[1],
+                StudyType = StudyType.Normal
+            },
+            new StudyProgram
+            {
+                Id = Ulid.NewUlid(),
+                Name = "Informacijos sistemos",
+                DepartmentId = departmentEifIds[1],
+                StudyType = StudyType.Sessions
+            },
+            new StudyProgram
+            {
+                Id = Ulid.NewUlid(),
+                Name = "Informacijos sistemos",
+                DepartmentId = departmentEifIds[1],
+                StudyType = StudyType.Remote
             },
             new StudyProgram
             {
                 Id = Ulid.NewUlid(),
                 Name = "Kompiuterių inžinerija",
-                DepartmentId = departmentEifIds[0]
+                DepartmentId = departmentEifIds[0],
+                StudyType = StudyType.Normal
+            },
+            new StudyProgram
+            {
+                Id = Ulid.NewUlid(),
+                Name = "Kompiuterių inžinerija",
+                DepartmentId = departmentEifIds[0],
+                StudyType = StudyType.Sessions
             },
             new StudyProgram
             {
                 Id = Ulid.NewUlid(),
                 Name = "Programų sistemos",
-                DepartmentId = departmentEifIds[2]
+                DepartmentId = departmentEifIds[2],
+                StudyType = StudyType.Normal
+            },
+            new StudyProgram
+            {
+                Id = Ulid.NewUlid(),
+                Name = "Programų sistemos",
+                DepartmentId = departmentEifIds[2],
+                StudyType = StudyType.English
+            },
+            new StudyProgram
+            {
+                Id = Ulid.NewUlid(),
+                Name = "Programų sistemos",
+                DepartmentId = departmentEifIds[2],
+                StudyType = StudyType.Sessions
+            },
+            new StudyProgram
+            {
+                Id = Ulid.NewUlid(),
+                Name = "Programų sistemos",
+                DepartmentId = departmentEifIds[2],
+                StudyType = StudyType.Remote
             }
         );
     }
