@@ -136,18 +136,24 @@ public class MyDatabaseContext(DbContextOptions<MyDatabaseContext> options) : Id
             {
                 Id = departmentEifIds[0],
                 Name = "Elektronikos ir kompiuterių inžinerijos katedra",
+                Email = "a.kirdeikiene@eif.viko.lt",
+                ShortName = "EKIK",
                 FacultyId = facultyIds[2]
             },
             new Department
             {
                 Id = departmentEifIds[1],
                 Name = "Informacinių sistemų katedra",
+                Email = "t.liogiene@eif.viko.lt",
+                ShortName = "ISK",
                 FacultyId = facultyIds[2]
             },
             new Department
             {
                 Id = departmentEifIds[2],
                 Name = "Programinės įrangos katedra",
+                Email = "j.zailskas@eif.viko.lt",
+                ShortName = "PĮK",
                 FacultyId = facultyIds[2]
             }
         );
