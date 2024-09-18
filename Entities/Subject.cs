@@ -6,7 +6,9 @@ public enum SubjectType
 {
     Mandatory = 1,
     SpecializedElective = 2,
-    Optional = 3
+    Lpd = 3,
+    General = 4,
+    Sport = 5
 }
 
 public class Subject
