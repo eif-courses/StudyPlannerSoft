@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using StudyPlannerSoft.Entities;
 
 namespace StudyPlannerSoft.Data;
 
-public class MyDatabaseContext : IdentityDbContext
+public class MyDatabaseContext(DbContextOptions<MyDatabaseContext> options) : IdentityDbContext(options)
 {
     public DbSet<Lecturer> Lecturers { get; set; }
     public DbSet<Faculty> Faculties { get; set; }
@@ -15,27 +14,182 @@ public class MyDatabaseContext : IdentityDbContext
     public DbSet<Subject> Subjects { get; set; }
     public DbSet<PlannedGroup> PlannedGroups { get; set; }
 
-
-    public MyDatabaseContext(DbContextOptions options) : base(options)
-    {
-    }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
+        ConvertUlidsForEntities(modelBuilder);
 
-        modelBuilder.Entity<IdentityRole>().HasData(
-            new IdentityRole { Id = "1", Name = "Admin", NormalizedName = "ADMIN" },
-            new IdentityRole { Id = "2", Name = "Deputy", NormalizedName = "DEPUTY" },
-            new IdentityRole { Id = "3", Name = "Lecturer", NormalizedName = "LECTURER" },
-            new IdentityRole { Id = "4", Name = "Faculty", NormalizedName = "FACULTY" },
-            new IdentityRole { Id = "5", Name = "Department", NormalizedName = "DEPARTMENT" }
+        LecturerEntityConfiguration.Configure(modelBuilder);
+        StudyProgramEntityConfiguration.Configure(modelBuilder);
+        SubjectEntityConfiguration.Configure(modelBuilder);
+        DepartmentEntityConfiguration.Configure(modelBuilder);
+
+        SeedFaculties(modelBuilder);
+    }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlite("Data Source=MyDatabase.db");
+    }
+
+    private void SeedFaculties(ModelBuilder modelBuilder)
+    {
+        var facultyIds = new List<Ulid>
+        {
+            Ulid.NewUlid(),
+            Ulid.NewUlid(),
+            Ulid.NewUlid(),
+            Ulid.NewUlid(),
+            Ulid.NewUlid(),
+            Ulid.NewUlid(),
+            Ulid.NewUlid(),
+            Ulid.NewUlid(),
+            Ulid.NewUlid(),
+            Ulid.NewUlid()
+        };
+
+
+        modelBuilder.Entity<Faculty>().HasData(
+            new Faculty
+            {
+                Id = facultyIds[0],
+                Name = "Agrotechnologijų fakultetas",
+                ShortName = "ATF",
+                Email = "administracija@atf.viko.lt"
+            },
+            new Faculty
+            {
+                Id = facultyIds[1],
+                Name = "Dizaino fakultetas",
+                ShortName = "DIF",
+                Email = "administracija@dif.viko.lt"
+            },
+            new Faculty
+            {
+                Id = facultyIds[2],
+                Name = "Elektronikos ir informatikos fakultetas",
+                ShortName = "EIF",
+                Email = "info@eif.viko.lt"
+            },
+            new Faculty
+            {
+                Id = facultyIds[3],
+                Name = "Ekonomikos fakultetas",
+                ShortName = "EKF",
+                Email = "administracija@ekf.viko.lt"
+            },
+            new Faculty
+            {
+                Id = facultyIds[4],
+                Name = "Pedagogikos fakultetas",
+                ShortName = "PDF",
+                Email = "administracija@pdf.viko.lt"
+            },
+            new Faculty
+            {
+                Id = facultyIds[5],
+                Name = "Menų ir kūrybinių technologijų fakultetas",
+                ShortName = "MTF",
+                Email = "administracija@mtf.viko.lt"
+            },
+            new Faculty
+            {
+                Id = facultyIds[6],
+                Name = "Statybos fakultetas",
+                ShortName = "STF",
+                Email = "administracija@stf.viko.lt"
+            },
+            new Faculty
+            {
+                Id = facultyIds[7],
+                Name = "Sveikatos priežiūros fakultetas",
+                ShortName = "SPF",
+                Email = "info@spf.viko.lt"
+            },
+            new Faculty
+            {
+                Id = facultyIds[8],
+                Name = "Technikos fakultetas",
+                ShortName = "TEF",
+                Email = "administracija@tef.viko.lt"
+            },
+            new Faculty
+            {
+                Id = facultyIds[9],
+                Name = "Verslo vadybos fakultetas",
+                ShortName = "VVF",
+                Email = "administracija@vvf.viko.lt"
+            }
+        );
+        
+        var departmentEifIds = new List<Ulid>
+        {
+            Ulid.NewUlid(),
+            Ulid.NewUlid(),
+            Ulid.NewUlid()
+        };
+
+        // EIF FAKULTETAS
+        modelBuilder.Entity<Department>().HasData(
+            new Department
+            {
+                Id = departmentEifIds[0],
+                Name = "Elektronikos ir kompiuterių inžinerijos katedra",
+                FacultyId = facultyIds[2]
+            },
+            new Department
+            {
+                Id = departmentEifIds[1],
+                Name = "Informacinių sistemų katedra",
+                FacultyId = facultyIds[2]
+            },
+            new Department
+            {
+                Id = departmentEifIds[2],
+                Name = "Programinės įrangos katedra",
+                FacultyId = facultyIds[2]
+            }
         );
 
+        modelBuilder.Entity<StudyProgram>().HasData(
+            new StudyProgram
+            {
+                Id = Ulid.NewUlid(),
+                Name = "Programinės įrangos testavimas",
+                DepartmentId = departmentEifIds[2]
+            },
+            new StudyProgram
+            {
+                Id = Ulid.NewUlid(),
+                Name = "Elektronikos inžinerija",
+                DepartmentId = departmentEifIds[0]
+            },
+            new StudyProgram
+            {
+                Id = Ulid.NewUlid(),
+                Name = "Informacijos sistemos",
+                DepartmentId = departmentEifIds[1]
+            },
+            new StudyProgram
+            {
+                Id = Ulid.NewUlid(),
+                Name = "Kompiuterių inžinerija",
+                DepartmentId = departmentEifIds[0]
+            },
+            new StudyProgram
+            {
+                Id = Ulid.NewUlid(),
+                Name = "Programų sistemos",
+                DepartmentId = departmentEifIds[2]
+            }
+        );
+    }
+
+    private void ConvertUlidsForEntities(ModelBuilder modelBuilder)
+    {
         var ulidConverter = new UlidValueConverter();
 
-        // Apply Ulid conversion globally
         foreach (var entity in modelBuilder.Model.GetEntityTypes())
         {
             var properties = entity.ClrType.GetProperties()
@@ -47,46 +201,5 @@ public class MyDatabaseContext : IdentityDbContext
                     .HasConversion(ulidConverter);
             }
         }
-
-        // Lecturer-Position relationship
-        modelBuilder.Entity<Lecturer>()
-            .HasOne(l => l.Position)
-            .WithMany()
-            .HasForeignKey(l => l.PositionId);
-
-        // Lecturer-Department relationship
-        modelBuilder.Entity<Lecturer>()
-            .HasOne(l => l.Department)
-            .WithMany(d => d.Lecturers)
-            .HasForeignKey(l => l.DepartmentId);
-
-        // Department-Faculty relationship
-        modelBuilder.Entity<Department>()
-            .HasOne(d => d.Faculty)
-            .WithMany(f => f.Departments)
-            .HasForeignKey(d => d.FacultyId);
-
-        // StudyProgram-Faculty relationship
-        modelBuilder.Entity<StudyProgram>()
-            .HasOne(sp => sp.Faculty)
-            .WithMany(f => f.StudyPrograms)
-            .HasForeignKey(sp => sp.FacultyId);
-
-        // Subject-Department relationship
-        modelBuilder.Entity<Subject>()
-            .HasOne(s => s.Department)
-            .WithMany(d => d.Subjects)
-            .HasForeignKey(s => s.DepartmentId);
-
-        // Subject-StudyProgram relationship
-        modelBuilder.Entity<Subject>()
-            .HasOne(s => s.StudyProgram)
-            .WithMany(sp => sp.Subjects)
-            .HasForeignKey(s => s.StudyProgramId);
-    }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlite("Data Source=MyDatabase.db");
     }
 }

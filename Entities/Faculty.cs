@@ -6,7 +6,5 @@ public class Faculty
     public string Name { get; set; } = string.Empty;
     public string ShortName { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
-    
     public ICollection<Department> Departments { get; set; } = new List<Department>();
-    public ICollection<StudyProgram> StudyPrograms { get; set; } = new List<StudyProgram>();
 }

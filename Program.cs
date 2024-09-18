@@ -32,10 +32,17 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
+
+    var context = services.GetRequiredService<MyDatabaseContext>();
+    context.Database.Migrate(); // Apply any pending migrations
+
     var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+    // Seed users and roles
     await SeedData.Initialize(userManager, roleManager);
 }
+
 
 app.UseHttpsRedirection();
 app.UseCors("AllowSpecificOrigin");
