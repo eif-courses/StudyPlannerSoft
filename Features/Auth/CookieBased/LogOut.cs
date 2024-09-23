@@ -8,7 +8,7 @@ internal sealed class LogOut: EndpointWithoutRequest
 {
     public override void Configure()
     {
-        Post("/auth/cookie-based/logout");
+        Post("/auth/logout");
         AuthSchemes(CookieAuthenticationDefaults.AuthenticationScheme);
     }
 

@@ -4,7 +4,7 @@ namespace StudyPlannerSoft.Data;
 
 public static class SeedData
 {
-    public static async Task Initialize(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+    public static async Task Initialize(UserManager<MyUser> userManager, RoleManager<IdentityRole> roleManager)
     {
         await SeedRoles(roleManager);
         await SeedUsers(userManager, roleManager);
@@ -23,18 +23,19 @@ public static class SeedData
         }
     }
 
-    private static async Task SeedUsers(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+    private static async Task SeedUsers(UserManager<MyUser> userManager, RoleManager<IdentityRole> roleManager)
     {
         string userName = "admin@viko.lt";
         string password = "Kolegija1@";
 
         if (await userManager.FindByNameAsync(userName) == null)
         {
-            var user = new IdentityUser
+            var user = new MyUser()
             {
                 UserName = userName,
                 Email = userName,
-                EmailConfirmed = true
+                EmailConfirmed = true,
+                FavouriteColor = "Red"
             };
 
             var result = await userManager.CreateAsync(user, password);

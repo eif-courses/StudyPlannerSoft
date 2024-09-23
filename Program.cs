@@ -9,11 +9,24 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<MyDatabaseContext>(options => { options.UseSqlite("Data Source=MyDatabase.db"); });
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+builder.Services.AddIdentity<MyUser, IdentityRole>()
     .AddEntityFrameworkStores<MyDatabaseContext>()
     .AddDefaultTokenProviders();
 
-builder.Services.AddAuthenticationCookie(validFor: TimeSpan.FromMinutes(60));
+
+
+var isDevelopment = builder.Environment.IsDevelopment();
+
+
+builder.Services.AddAuthenticationCookie(validFor: TimeSpan.FromMinutes(2), options =>
+{
+    options.Cookie.Name = "authToken";
+    options.LoginPath = "/api/auth/login";
+    options.LogoutPath = "/api/auth/logout";
+    options.Cookie.SameSite = isDevelopment ? SameSiteMode.Lax : SameSiteMode.None;
+    options.Cookie.SecurePolicy = isDevelopment ? CookieSecurePolicy.None : CookieSecurePolicy.Always;
+    
+});
 builder.Services.AddAuthorization();
 builder.Services.AddFastEndpoints();
 builder.Services.SwaggerDocument();
@@ -36,7 +49,7 @@ using (var scope = app.Services.CreateScope())
     var context = services.GetRequiredService<MyDatabaseContext>();
     context.Database.Migrate(); // Apply any pending migrations
 
-    var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+    var userManager = services.GetRequiredService<UserManager<MyUser>>();
     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
     // Seed users and roles

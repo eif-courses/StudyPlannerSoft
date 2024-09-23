@@ -1,10 +1,15 @@
-﻿using FastEndpoints;
-using Microsoft.EntityFrameworkCore;
-using StudyPlannerSoft.Data;
-using StudyPlannerSoft.Dto;
-using StudyPlannerSoft.Entities;
+﻿
 
 namespace StudyPlannerSoft.Features.StudyPlan.Subjects;
+
+
+
+public class SubjectResponse
+{
+    public int Id { get; set; }
+    public string? Title { get; set; }
+    public string? Description { get; set; }
+}
 
 
 //public List<SubjectDto> Subjects { get; set; } = new List<SubjectDto>();

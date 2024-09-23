@@ -25,7 +25,7 @@ internal sealed class LogIn : Endpoint<SingInRequest>
 
     public override void Configure()
     {
-        Post("/auth/cookie-based/login");
+        Post("/auth/login");
         AllowAnonymous();
     }
 
@@ -44,7 +44,7 @@ internal sealed class LogIn : Endpoint<SingInRequest>
             await SendUnauthorizedAsync(ct);
             return;
         }
-        
+    
         var roles = await _userManager.GetRolesAsync(user);
         var claims = new List<Claim>
         {
@@ -54,13 +54,19 @@ internal sealed class LogIn : Endpoint<SingInRequest>
         };
 
         claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
-        
+
+        // Sign in the user and log the operation
         await CookieAuth.SignInAsync(u =>
         {
             u.Claims.AddRange(claims);
             u.Roles.AddRange(roles);
         });
+        
+        
+        // Log successful login
+        Console.WriteLine($"User {user.UserName} signed in successfully.");
 
         await SendOkAsync(ct);
     }
+
 }

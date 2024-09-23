@@ -28,5 +28,7 @@ public static class LecturerEntityConfiguration
             .HasOne(l => l.Department)
             .WithMany(d => d.Lecturers)
             .HasForeignKey(l => l.DepartmentId);
+        
+      
     }
 }

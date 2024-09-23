@@ -66,70 +66,6 @@ namespace StudyPlannerSoft.Migrations
                     b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex");
-
-                    b.ToTable("AspNetUsers", (string)null);
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
                     b.Property<int>("Id")
@@ -209,6 +145,73 @@ namespace StudyPlannerSoft.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("MyUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("FavouriteColor")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
+
             modelBuilder.Entity("StudyPlannerSoft.Entities.Department", b =>
                 {
                     b.Property<string>("Id")
@@ -240,25 +243,25 @@ namespace StudyPlannerSoft.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "01J83FQKCKMQXK32TR3WW0XJGD",
+                            Id = "01J8EYYMH0FMPK8VD5DETV06QS",
                             Email = "a.kirdeikiene@eif.viko.lt",
-                            FacultyId = "01J83FQKCK24E1Q68GJ5DKPT41",
+                            FacultyId = "01J8EYYMH08TT0TM3Z4VN01HW3",
                             Name = "Elektronikos ir kompiuterių inžinerijos katedra",
                             ShortName = "EKIK"
                         },
                         new
                         {
-                            Id = "01J83FQKCK72EKGH7F7XZJMPDM",
+                            Id = "01J8EYYMH0SXZ46RBZS88QYEA8",
                             Email = "t.liogiene@eif.viko.lt",
-                            FacultyId = "01J83FQKCK24E1Q68GJ5DKPT41",
+                            FacultyId = "01J8EYYMH08TT0TM3Z4VN01HW3",
                             Name = "Informacinių sistemų katedra",
                             ShortName = "ISK"
                         },
                         new
                         {
-                            Id = "01J83FQKCKJHZ8WZW0AWTXNNER",
+                            Id = "01J8EYYMH04CKZG9ACA5RRHXR2",
                             Email = "j.zailskas@eif.viko.lt",
-                            FacultyId = "01J83FQKCK24E1Q68GJ5DKPT41",
+                            FacultyId = "01J8EYYMH08TT0TM3Z4VN01HW3",
                             Name = "Programinės įrangos katedra",
                             ShortName = "PĮK"
                         });
@@ -288,70 +291,70 @@ namespace StudyPlannerSoft.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "01J83FQKCK5AHV3K0WC781HS06",
+                            Id = "01J8EYYMH06KKRMH16NHBENPYE",
                             Email = "administracija@atf.viko.lt",
                             Name = "Agrotechnologijų fakultetas",
                             ShortName = "ATF"
                         },
                         new
                         {
-                            Id = "01J83FQKCKFCMK2P0NAAHR1QGX",
+                            Id = "01J8EYYMH0HA1TJ2TKNN60SPGW",
                             Email = "administracija@dif.viko.lt",
                             Name = "Dizaino fakultetas",
                             ShortName = "DIF"
                         },
                         new
                         {
-                            Id = "01J83FQKCK24E1Q68GJ5DKPT41",
+                            Id = "01J8EYYMH08TT0TM3Z4VN01HW3",
                             Email = "info@eif.viko.lt",
                             Name = "Elektronikos ir informatikos fakultetas",
                             ShortName = "EIF"
                         },
                         new
                         {
-                            Id = "01J83FQKCKJ6XEHD4H03R7SE42",
+                            Id = "01J8EYYMH04TYV2V11J259KWAV",
                             Email = "administracija@ekf.viko.lt",
                             Name = "Ekonomikos fakultetas",
                             ShortName = "EKF"
                         },
                         new
                         {
-                            Id = "01J83FQKCK13JVHBWYEATSP7XA",
+                            Id = "01J8EYYMH0NDZQX7KD0KK741RN",
                             Email = "administracija@pdf.viko.lt",
                             Name = "Pedagogikos fakultetas",
                             ShortName = "PDF"
                         },
                         new
                         {
-                            Id = "01J83FQKCK06BRM6DMD0Q59SK5",
+                            Id = "01J8EYYMH05VRDTHGDVY902B7C",
                             Email = "administracija@mtf.viko.lt",
                             Name = "Menų ir kūrybinių technologijų fakultetas",
                             ShortName = "MTF"
                         },
                         new
                         {
-                            Id = "01J83FQKCKWJ01TGJP3MW34ZYN",
+                            Id = "01J8EYYMH097ZP8S9EMD1WVNYJ",
                             Email = "administracija@stf.viko.lt",
                             Name = "Statybos fakultetas",
                             ShortName = "STF"
                         },
                         new
                         {
-                            Id = "01J83FQKCK7DVMWRCAR08Q6Z03",
+                            Id = "01J8EYYMH01ZCT0TRNYFMJV40F",
                             Email = "info@spf.viko.lt",
                             Name = "Sveikatos priežiūros fakultetas",
                             ShortName = "SPF"
                         },
                         new
                         {
-                            Id = "01J83FQKCK5MDPPDRNB3ER9BSG",
+                            Id = "01J8EYYMH0ZNNVEGDP7MB90WHN",
                             Email = "administracija@tef.viko.lt",
                             Name = "Technikos fakultetas",
                             ShortName = "TEF"
                         },
                         new
                         {
-                            Id = "01J83FQKCKNB2J5WKS46Z2C568",
+                            Id = "01J8EYYMH0FB8WRTG5D8KBPSNJ",
                             Email = "administracija@vvf.viko.lt",
                             Name = "Verslo vadybos fakultetas",
                             ShortName = "VVF"
@@ -467,85 +470,85 @@ namespace StudyPlannerSoft.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "01J83FQKCK32K4T5Y03DX9Z2JK",
-                            DepartmentId = "01J83FQKCKJHZ8WZW0AWTXNNER",
+                            Id = "01J8EYYMH0W3DZBTJ2G883JMFY",
+                            DepartmentId = "01J8EYYMH04CKZG9ACA5RRHXR2",
                             Name = "Programinės įrangos testavimas",
                             StudyType = 1
                         },
                         new
                         {
-                            Id = "01J83FQKCKFK0W72ZZ4JXQGSV4",
-                            DepartmentId = "01J83FQKCKMQXK32TR3WW0XJGD",
+                            Id = "01J8EYYMH0P1MPHG927MCZ8SK8",
+                            DepartmentId = "01J8EYYMH0FMPK8VD5DETV06QS",
                             Name = "Elektronikos inžinerija",
                             StudyType = 1
                         },
                         new
                         {
-                            Id = "01J83FQKCKZ7XQMDWSH662Q3VB",
-                            DepartmentId = "01J83FQKCKMQXK32TR3WW0XJGD",
+                            Id = "01J8EYYMH0MSNBM04FWBW6NVSX",
+                            DepartmentId = "01J8EYYMH0FMPK8VD5DETV06QS",
                             Name = "Elektronikos inžinerija",
                             StudyType = 2
                         },
                         new
                         {
-                            Id = "01J83FQKCKXDHT1SXFYEXJH0YF",
-                            DepartmentId = "01J83FQKCK72EKGH7F7XZJMPDM",
+                            Id = "01J8EYYMH0RYZPKRD8B74C2BEK",
+                            DepartmentId = "01J8EYYMH0SXZ46RBZS88QYEA8",
                             Name = "Informacijos sistemos",
                             StudyType = 1
                         },
                         new
                         {
-                            Id = "01J83FQKCKFMCTWH5Y6GVWMR07",
-                            DepartmentId = "01J83FQKCK72EKGH7F7XZJMPDM",
+                            Id = "01J8EYYMH0N06W8FYXKG8G36AB",
+                            DepartmentId = "01J8EYYMH0SXZ46RBZS88QYEA8",
                             Name = "Informacijos sistemos",
                             StudyType = 2
                         },
                         new
                         {
-                            Id = "01J83FQKCK7VQGCAQ6TF7RKSZ3",
-                            DepartmentId = "01J83FQKCK72EKGH7F7XZJMPDM",
+                            Id = "01J8EYYMH0CG27YCF4K6K5CY20",
+                            DepartmentId = "01J8EYYMH0SXZ46RBZS88QYEA8",
                             Name = "Informacijos sistemos",
                             StudyType = 3
                         },
                         new
                         {
-                            Id = "01J83FQKCK0YMH5KGVC9MMMPX9",
-                            DepartmentId = "01J83FQKCKMQXK32TR3WW0XJGD",
+                            Id = "01J8EYYMH05Z049BVNSCJJQC6T",
+                            DepartmentId = "01J8EYYMH0FMPK8VD5DETV06QS",
                             Name = "Kompiuterių inžinerija",
                             StudyType = 1
                         },
                         new
                         {
-                            Id = "01J83FQKCKD05FENFXC4KKYH8Z",
-                            DepartmentId = "01J83FQKCKMQXK32TR3WW0XJGD",
+                            Id = "01J8EYYMH0P3AVD4G1EET3X04T",
+                            DepartmentId = "01J8EYYMH0FMPK8VD5DETV06QS",
                             Name = "Kompiuterių inžinerija",
                             StudyType = 2
                         },
                         new
                         {
-                            Id = "01J83FQKCKPKR63CKFRZZXHMWF",
-                            DepartmentId = "01J83FQKCKJHZ8WZW0AWTXNNER",
+                            Id = "01J8EYYMH0EX9C7ME1FSPSRXHC",
+                            DepartmentId = "01J8EYYMH04CKZG9ACA5RRHXR2",
                             Name = "Programų sistemos",
                             StudyType = 1
                         },
                         new
                         {
-                            Id = "01J83FQKCKY75PHQTVA1EJHFA9",
-                            DepartmentId = "01J83FQKCKJHZ8WZW0AWTXNNER",
+                            Id = "01J8EYYMH015DYCT3W84YAXCBR",
+                            DepartmentId = "01J8EYYMH04CKZG9ACA5RRHXR2",
                             Name = "Programų sistemos",
                             StudyType = 4
                         },
                         new
                         {
-                            Id = "01J83FQKCKZQDYZJW6S70V15R7",
-                            DepartmentId = "01J83FQKCKJHZ8WZW0AWTXNNER",
+                            Id = "01J8EYYMH088WCWM58VBZPM0CM",
+                            DepartmentId = "01J8EYYMH04CKZG9ACA5RRHXR2",
                             Name = "Programų sistemos",
                             StudyType = 2
                         },
                         new
                         {
-                            Id = "01J83FQKCKDCQTDSHGS0BWPF37",
-                            DepartmentId = "01J83FQKCKJHZ8WZW0AWTXNNER",
+                            Id = "01J8EYYMH01H0PY4SEDJ6GTNFF",
+                            DepartmentId = "01J8EYYMH04CKZG9ACA5RRHXR2",
                             Name = "Programų sistemos",
                             StudyType = 3
                         });
@@ -647,7 +650,7 @@ namespace StudyPlannerSoft.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("MyUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -656,7 +659,7 @@ namespace StudyPlannerSoft.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("MyUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -671,7 +674,7 @@ namespace StudyPlannerSoft.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("MyUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -680,7 +683,7 @@ namespace StudyPlannerSoft.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("MyUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

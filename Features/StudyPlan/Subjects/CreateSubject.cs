@@ -1,13 +1,17 @@
 ﻿using FastEndpoints;
 using StudyPlannerSoft.Data;
-using StudyPlannerSoft.Dto;
-using StudyPlannerSoft.Entities;
 
 namespace StudyPlannerSoft.Features.StudyPlan.Subjects;
 
+public class SubjectRequest
+{
+    public int Id { get; set; }
+    public string? Title { get; set; }
+    public string? Description { get; set; }
+}
 
 
-internal sealed class CreateSubject : Endpoint<SubjectDto>
+internal sealed class CreateSubject : Endpoint<SubjectRequest>
 {
     
     private readonly MyDatabaseContext _context;
@@ -23,7 +27,7 @@ internal sealed class CreateSubject : Endpoint<SubjectDto>
         AllowAnonymous();
     }
 
-    public override async Task HandleAsync(SubjectDto req, CancellationToken ct)
+    public override async Task HandleAsync(SubjectRequest req, CancellationToken ct)
     {
         
         // var subject = new SubjectOld

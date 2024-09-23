@@ -4,7 +4,7 @@ using StudyPlannerSoft.Entities;
 
 namespace StudyPlannerSoft.Data;
 
-public class MyDatabaseContext(DbContextOptions<MyDatabaseContext> options) : IdentityDbContext(options)
+public class MyDatabaseContext(DbContextOptions<MyDatabaseContext> options) : IdentityDbContext<MyUser>(options)
 {
     public DbSet<Lecturer> Lecturers { get; set; }
     public DbSet<Faculty> Faculties { get; set; }
