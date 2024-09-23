@@ -37,8 +37,7 @@ builder.Services.AddAuthenticationCookie(validFor: TimeSpan.FromDays(30), option
     options.LoginPath = "/api/auth/login";
     options.LogoutPath = "/api/auth/logout";
     options.Cookie.SameSite = SameSiteMode.None; //isDevelopment ? SameSiteMode.Lax : SameSiteMode.None;
-    options.Cookie.SecurePolicy =
-        CookieSecurePolicy.None; //isDevelopment ? CookieSecurePolicy.None : CookieSecurePolicy.Always;
+    options.Cookie.SecurePolicy = isDevelopment ? CookieSecurePolicy.None : CookieSecurePolicy.Always;
 });
 builder.Services.AddAuthorization();
 builder.Services.AddFastEndpoints();
