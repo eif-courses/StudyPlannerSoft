@@ -13,11 +13,11 @@ public class SingInRequest
 
 internal sealed class LogIn : Endpoint<SingInRequest>
 {
-    private readonly UserManager<IdentityUser> _userManager;
-    private readonly SignInManager<IdentityUser> _signInManager;
+    private readonly UserManager<MyUser> _userManager;
+    private readonly SignInManager<MyUser> _signInManager;
 
 
-    public LogIn(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+    public LogIn(UserManager<MyUser> userManager, SignInManager<MyUser> signInManager)
     {
         _userManager = userManager;
         _signInManager = signInManager;
