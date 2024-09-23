@@ -3,50 +3,32 @@ using FastEndpoints.Security;
 using FastEndpoints.Swagger;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 using StudyPlannerSoft.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+DotNetEnv.Env.Load();
+
 var isDevelopment = builder.Environment.IsDevelopment();
 
-
-
-if (isDevelopment)
+var npgsqlConnectionString = new NpgsqlConnectionStringBuilder
 {
-    builder.Services.AddDbContext<MyDatabaseContext>(options => { options.UseSqlite("Data Source=MyDatabase.db"); });
-}
+    Host = Environment.GetEnvironmentVariable("POSTGRES_HOST"),
+    Port = Convert.ToInt32(Environment.GetEnvironmentVariable("POSTGRES_PORT")),
+    Username = Environment.GetEnvironmentVariable("POSTGRES_USER"),
+    Password = Environment.GetEnvironmentVariable("POSTGRES_PASSWORD"),
+    Database = Environment.GetEnvironmentVariable("POSTGRES_DB"),
+    SslMode = SslMode.Require
+};
 
-else
-{
-    var connectionString = Environment.GetEnvironmentVariable("DATABASE_PUBLIC_URL");
 
-    if (string.IsNullOrEmpty(connectionString))
-    {
-        throw new InvalidOperationException("DATABASE_PUBLIC_URL environment variable is not set.");
-    }
+builder.Services.AddDbContext<MyDatabaseContext>(options => { options.UseNpgsql(npgsqlConnectionString.ConnectionString); });
 
-    // Modify the connection string to work with Npgsql
-    connectionString = connectionString.Replace("postgres://", "Host=")
-        .Replace(":", ";Port=")
-        .Replace("@", ";Username=")
-        .Replace("/", ";Database=");
-
-    // Append SSL and certificate settings if necessary
-    connectionString += ";SSL Mode=Require;Trust Server Certificate=true;";
-
-    // Configure the DbContext to use PostgreSQL
-    builder.Services.AddDbContext<MyDatabaseContext>(options =>
-    {
-        options.UseNpgsql(connectionString);
-    });
-}
 
 builder.Services.AddIdentity<MyUser, IdentityRole>()
     .AddEntityFrameworkStores<MyDatabaseContext>()
     .AddDefaultTokenProviders();
-
-
-
 
 
 builder.Services.AddAuthenticationCookie(validFor: TimeSpan.FromMinutes(2), options =>
@@ -56,7 +38,6 @@ builder.Services.AddAuthenticationCookie(validFor: TimeSpan.FromMinutes(2), opti
     options.LogoutPath = "/api/auth/logout";
     options.Cookie.SameSite = isDevelopment ? SameSiteMode.Lax : SameSiteMode.None;
     options.Cookie.SecurePolicy = isDevelopment ? CookieSecurePolicy.None : CookieSecurePolicy.Always;
-    
 });
 builder.Services.AddAuthorization();
 builder.Services.AddFastEndpoints();

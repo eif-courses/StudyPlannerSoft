@@ -19,5 +19,12 @@
         </library>
       </libraries>
     </data-source>
+    <data-source source="LOCAL" name="railway@junction.proxy.rlwy.net" uuid="938bbf5b-4e10-4522-981a-47eaa2624513">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://junction.proxy.rlwy.net:36808/railway</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

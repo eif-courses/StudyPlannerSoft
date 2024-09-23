@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 using StudyPlannerSoft.Entities;
 
 namespace StudyPlannerSoft.Data;
@@ -32,30 +33,16 @@ public class MyDatabaseContext(DbContextOptions<MyDatabaseContext> options) : Id
     {
         if (!optionsBuilder.IsConfigured)
         {
-            var isDevelopment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
-
-            if (isDevelopment)
+            var npgsqlConnectionString = new NpgsqlConnectionStringBuilder
             {
-                optionsBuilder.UseSqlite("Data Source=MyDatabase.db");
-            }
-            else
-            {
-                var connectionString = Environment.GetEnvironmentVariable("DATABASE_PUBLIC_URL");
-
-                if (string.IsNullOrEmpty(connectionString))
-                {
-                    throw new InvalidOperationException("DATABASE_PUBLIC_URL environment variable is not set.");
-                }
-
-                connectionString = connectionString.Replace("postgres://", "Host=")
-                    .Replace(":", ";Port=")
-                    .Replace("@", ";Username=")
-                    .Replace("/", ";Database=");
-
-                connectionString += ";SSL Mode=Require;Trust Server Certificate=true;";
-
-                optionsBuilder.UseNpgsql(connectionString);
-            }
+                Host = Environment.GetEnvironmentVariable("POSTGRES_HOST"),
+                Port = Convert.ToInt32(Environment.GetEnvironmentVariable("POSTGRES_PORT")),
+                Username = Environment.GetEnvironmentVariable("POSTGRES_USER"),
+                Password = Environment.GetEnvironmentVariable("POSTGRES_PASSWORD"),
+                Database = Environment.GetEnvironmentVariable("POSTGRES_DB"),
+                SslMode = SslMode.Require
+            };
+            optionsBuilder.UseNpgsql(npgsqlConnectionString.ConnectionString);
         }
     }
 
