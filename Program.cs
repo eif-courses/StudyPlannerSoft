@@ -23,7 +23,10 @@ var npgsqlConnectionString = new NpgsqlConnectionStringBuilder
 };
 
 
-builder.Services.AddDbContext<MyDatabaseContext>(options => { options.UseNpgsql(npgsqlConnectionString.ConnectionString); });
+builder.Services.AddDbContext<MyDatabaseContext>(options =>
+{
+    options.UseNpgsql(npgsqlConnectionString.ConnectionString);
+});
 
 
 builder.Services.AddIdentity<MyUser, IdentityRole>()
@@ -34,11 +37,15 @@ builder.Services.AddIdentity<MyUser, IdentityRole>()
 builder.Services.AddAuthenticationCookie(validFor: TimeSpan.FromDays(30), options =>
 {
     options.Cookie.Name = "authToken";
-    options.LoginPath = "/api/auth/login";
-    options.LogoutPath = "/api/auth/logout";
-    options.Cookie.SameSite = SameSiteMode.None; //isDevelopment ? SameSiteMode.Lax : SameSiteMode.None;
-    options.Cookie.SecurePolicy = isDevelopment ? CookieSecurePolicy.None : CookieSecurePolicy.Always;
+    options.LoginPath = "/auth/login";
+    options.LogoutPath = "/auth/logout";
+    options.SlidingExpiration = true;
+    options.Cookie.SameSite = SameSiteMode.None; // Allow cross-origin requests
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // Set to None for local development
+    options.Cookie.Path = "/"; 
 });
+
+
 builder.Services.AddAuthorization();
 builder.Services.AddFastEndpoints();
 builder.Services.SwaggerDocument();

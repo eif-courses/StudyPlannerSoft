@@ -35,6 +35,7 @@ public class GetUser: EndpointWithoutRequest<GetUserResponse>
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (userId == null)
         {
+            Console.WriteLine("User ID not found in claims."); // Debugging
             await SendUnauthorizedAsync(ct);
             return;
         }
@@ -42,6 +43,7 @@ public class GetUser: EndpointWithoutRequest<GetUserResponse>
         var user = await _userManager.FindByIdAsync(userId);
         if (user == null)
         {
+            Console.WriteLine($"User not found with ID: {userId}"); // Debugging
             await SendNotFoundAsync(ct);
             return;
         }
