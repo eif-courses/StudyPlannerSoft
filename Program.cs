@@ -31,7 +31,7 @@ builder.Services.AddIdentity<MyUser, IdentityRole>()
     .AddDefaultTokenProviders();
 
 
-builder.Services.AddAuthenticationCookie(validFor: TimeSpan.FromMinutes(2), options =>
+builder.Services.AddAuthenticationCookie(validFor: TimeSpan.FromDays(30), options =>
 {
     options.Cookie.Name = "authToken";
     options.LoginPath = "/api/auth/login";
