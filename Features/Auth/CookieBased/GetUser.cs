@@ -17,9 +17,9 @@ public class GetUser: EndpointWithoutRequest<GetUserResponse>
 {
     
     
-    private readonly UserManager<IdentityUser> _userManager;
+    private readonly UserManager<MyUser> _userManager;
 
-    public GetUser(UserManager<IdentityUser> userManager)
+    public GetUser(UserManager<MyUser> userManager)
     {
         _userManager = userManager;
     }
