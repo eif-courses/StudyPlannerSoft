@@ -30,7 +30,33 @@ public class MyDatabaseContext(DbContextOptions<MyDatabaseContext> options) : Id
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlite("Data Source=MyDatabase.db");
+        if (!optionsBuilder.IsConfigured)
+        {
+            var isDevelopment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
+
+            if (isDevelopment)
+            {
+                optionsBuilder.UseSqlite("Data Source=MyDatabase.db");
+            }
+            else
+            {
+                var connectionString = Environment.GetEnvironmentVariable("DATABASE_PUBLIC_URL");
+
+                if (string.IsNullOrEmpty(connectionString))
+                {
+                    throw new InvalidOperationException("DATABASE_PUBLIC_URL environment variable is not set.");
+                }
+
+                connectionString = connectionString.Replace("postgres://", "Host=")
+                    .Replace(":", ";Port=")
+                    .Replace("@", ";Username=")
+                    .Replace("/", ";Database=");
+
+                connectionString += ";SSL Mode=Require;Trust Server Certificate=true;";
+
+                optionsBuilder.UseNpgsql(connectionString);
+            }
+        }
     }
 
     private void SeedFaculties(ModelBuilder modelBuilder)
@@ -122,7 +148,7 @@ public class MyDatabaseContext(DbContextOptions<MyDatabaseContext> options) : Id
                 Email = "administracija@vvf.viko.lt"
             }
         );
-        
+
         var departmentEifIds = new List<Ulid>
         {
             Ulid.NewUlid(),

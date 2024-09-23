@@ -7,7 +7,39 @@ using StudyPlannerSoft.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<MyDatabaseContext>(options => { options.UseSqlite("Data Source=MyDatabase.db"); });
+var isDevelopment = builder.Environment.IsDevelopment();
+
+
+
+if (isDevelopment)
+{
+    builder.Services.AddDbContext<MyDatabaseContext>(options => { options.UseSqlite("Data Source=MyDatabase.db"); });
+}
+
+else
+{
+    var connectionString = Environment.GetEnvironmentVariable("DATABASE_PUBLIC_URL");
+
+    if (string.IsNullOrEmpty(connectionString))
+    {
+        throw new InvalidOperationException("DATABASE_PUBLIC_URL environment variable is not set.");
+    }
+
+    // Modify the connection string to work with Npgsql
+    connectionString = connectionString.Replace("postgres://", "Host=")
+        .Replace(":", ";Port=")
+        .Replace("@", ";Username=")
+        .Replace("/", ";Database=");
+
+    // Append SSL and certificate settings if necessary
+    connectionString += ";SSL Mode=Require;Trust Server Certificate=true;";
+
+    // Configure the DbContext to use PostgreSQL
+    builder.Services.AddDbContext<MyDatabaseContext>(options =>
+    {
+        options.UseNpgsql(connectionString);
+    });
+}
 
 builder.Services.AddIdentity<MyUser, IdentityRole>()
     .AddEntityFrameworkStores<MyDatabaseContext>()
@@ -15,7 +47,6 @@ builder.Services.AddIdentity<MyUser, IdentityRole>()
 
 
 
-var isDevelopment = builder.Environment.IsDevelopment();
 
 
 builder.Services.AddAuthenticationCookie(validFor: TimeSpan.FromMinutes(2), options =>
