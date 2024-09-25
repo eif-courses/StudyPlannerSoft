@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using StudyPlannerSoft.Data;
+using StudyPlannerSoft.Features.Imports;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,6 +46,7 @@ builder.Services.AddAuthenticationCookie(validFor: TimeSpan.FromDays(30), option
     options.Cookie.Path = "/"; 
 });
 
+builder.Services.AddScoped<SubjectImporter>();
 
 builder.Services.AddAuthorization();
 builder.Services.AddFastEndpoints();

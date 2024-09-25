@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <PackageReference Include="DotNetEnv" Version="3.1.1" />
+      <PackageReference Include="EPPlus" Version="7.3.2" />
       <PackageReference Include="FastEndpoints" Version="5.29.0.3-beta" />
       <PackageReference Include="FastEndpoints.Security" Version="5.29.0.3-beta" />
       <PackageReference Include="FastEndpoints.Swagger" Version="5.29.0.3-beta" />
