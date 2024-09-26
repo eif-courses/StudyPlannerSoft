@@ -18,10 +18,10 @@ public class Subject
     public Semester Semester { get; set; } = Semester.First;
     public int Credits { get; set; }
     public string EvaluationForm { get; set; } = string.Empty;
-    public string EvaluationFormShort { get; set; } = string.Empty;
-
+    public string? Category { get; set; } = string.Empty;
+    public string? CategoryDescription { get; set; } = string.Empty;
     public SubjectType SubjectType { get; set; } = SubjectType.Mandatory;
-    public string SubjectTypeCategoryDescription { get; set; } = string.Empty;
+   
 
     // Kontaktines valandos
 
@@ -41,8 +41,15 @@ public class Subject
     // Ne kontaktines valandos
 
     public double GradingNumberCount { get; set; }
-    public double GradingHoursCount { get; set; }
-    public double OtherNonContactCount { get; set; }
+    public double? GradingHoursCount { get; set; }
+    
+    public double? HomeworkHoursCount { get; set; }
+    public double? PracticeReportHoursCount { get; set; }
+    public double? RemoteTeachingHoursCount { get; set; }
+    public double? CourseWorkHoursCount { get; set; }
+    public double? ExamHours { get; set; }
+    
+    public double? OtherNonContactCount { get; set; }
     
     public Ulid StudyProgramId { get; set; } 
     public StudyProgram StudyProgram { get; set; }
