@@ -35,7 +35,7 @@ public class Subject
     public int SubGroupsCount { get; set; } = 1;
     public int LecturesCount { get; set; } 
     public double FinalProjectExamCount { get; set; }
-    public double OtherContactHoursCount { get; set; }
+    public double? OtherContactHoursCount { get; set; }
     public double ConsultationCount { get; set; }
 
     // Ne kontaktines valandos
