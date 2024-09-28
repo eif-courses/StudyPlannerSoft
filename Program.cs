@@ -50,7 +50,6 @@ builder.Services.AddAuthenticationCookie(validFor: TimeSpan.FromDays(30), option
 
 builder.Services.AddScoped<SubjectImporter>();
 builder.Services.AddScoped<LecturerImporter>();
-builder.Services.AddScoped<ImportLecturers>();
 
 builder.Services.AddAuthorization();
 builder.Services.AddFastEndpoints();
