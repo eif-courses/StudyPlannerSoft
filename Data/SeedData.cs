@@ -1,5 +1,4 @@
-﻿using FastEndpoints;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using StudyPlannerSoft.Entities;
 
@@ -30,16 +29,121 @@ public static class SeedData
             new Position
             {
                 Id = Ulid.NewUlid(),
-                Name = "Lektorius",
-                Pab = 8.7,
-                Description = "Lektorius 760 val."
+                Name = "Profesorius_23",
+                Pab = 2.42,
+                Description = "Profesorius"
             },
             new Position
             {
                 Id = Ulid.NewUlid(),
-                Name = "Asistentas",
-                Pab = 9.7,
-                Description = "Asitentas mokslininkas 460 val."
+                Name = "Docentas_23",
+                Pab = 2.02,
+                Description = "Docento, turinčio mokslo daktaro laipsnį"
+            },
+            new Position
+            {
+                Id = Ulid.NewUlid(),
+                Name = "Docentas_menininkas_23",
+                Pab = 1.77,
+                Description = "Docento, pripažinto menininko, o taip pat AT pritarimu vieneriems metams priimamam asmeniui, turinčiam didelę praktinę patirtį dėstomo dalyko srityje ir magistro kvalifikacinį laipsnį ar jam prilygintą aukštojo mokslo kvalifikaciją"
+            },
+            new Position
+            {
+                Id = Ulid.NewUlid(),
+                Name = "Lektorius dr._23",
+                Pab = 1.72,
+                Description = "Lektoriaus, turinčio mokslo daktaro laipsnį"
+            },
+            new Position
+            {
+                Id = Ulid.NewUlid(),
+                Name = "Lektorius_23 (d)",
+                Pab = 1.60,
+                Description = "Lektorius"
+            }, 
+            new Position
+            {
+                Id = Ulid.NewUlid(),
+                Name = "Lektorius_23 (m)",
+                Pab = 1.43,
+                Description = "Lektorius"
+            },
+            new Position
+            {
+                Id = Ulid.NewUlid(),
+                Name = "Asistentas_23 (mag.)",
+                Pab = 1.33,
+                Description = "Asistento, turinčio magistro laipsnį"
+            },
+            new Position
+            {
+                Id = Ulid.NewUlid(),
+                Name = "Asistentas_23 (bak.)",
+                Pab = 1.31,
+                Description = "Asistento, turinčio bakalauro arba profesinio bakalauro laipsnį"
+            },
+            new Position
+            {
+                Id = Ulid.NewUlid(),
+                Name = "Profesorius_24",
+                Pab = 2.42,
+                Description = "Profesorius"
+            },
+            new Position
+            {
+                Id = Ulid.NewUlid(),
+                Name = "Profesorius_Kv_24",
+                Pab = 2.42,
+                Description = "Kviestinis profesorius"
+            },
+            new Position
+            {
+                Id = Ulid.NewUlid(),
+                Name = "Docentas_24",
+                Pab = 2.02,
+                Description = "Docentas"
+            },
+            new Position
+            {
+                Id = Ulid.NewUlid(),
+                Name = "Docentas_Kv_24",
+                Pab = 2.02,
+                Description = "Kviestinis docentas"
+            },
+            new Position
+            {
+                Id = Ulid.NewUlid(),
+                Name = "Asistentas_24",
+                Pab = 1.84,
+                Description = "Asistentas"
+            }, 
+            new Position
+            {
+                Id = Ulid.NewUlid(),
+                Name = "Jaunesnysis asistentas_24",
+                Pab = 1.78,
+                Description = "Jaunesnysis asistentas"
+            },
+            new Position
+            {
+                Id = Ulid.NewUlid(),
+                Name = "Vyresnysis lektorius_24",
+                Pab = 1.72,
+                Description = "Vyresnysis lektorius"
+            },
+            new Position
+            {
+                Id = Ulid.NewUlid(),
+                Name = "Lektorius_24",
+                Pab = 1.60,
+                Description = "Lektorius"
+            },
+            new Position
+            {
+                Id = Ulid.NewUlid(),
+                Name = "Dėstytojas praktikas_24",
+                Pab = 1.72,
+                Description = "Dėstytojas praktikas"
             }
         );
     }
