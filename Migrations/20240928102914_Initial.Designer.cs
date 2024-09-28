@@ -12,7 +12,7 @@ using StudyPlannerSoft.Data;
 namespace StudyPlannerSoft.Migrations
 {
     [DbContext(typeof(MyDatabaseContext))]
-    [Migration("20240923160646_Initial")]
+    [Migration("20240928102914_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -49,6 +49,38 @@ namespace StudyPlannerSoft.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "01H6N7NV1KTPB9QDZ7FYDJ3HHK",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "01H6N7NV1JHYY7N2NFDYX4ATAP",
+                            Name = "Deputy",
+                            NormalizedName = "DEPUTY"
+                        },
+                        new
+                        {
+                            Id = "01H6N7NV1YTMCV8YPZC7QQGGG7",
+                            Name = "Lecturer",
+                            NormalizedName = "LECTURER"
+                        },
+                        new
+                        {
+                            Id = "01H6N7NV18JWC8MYPXCVZR9WZW",
+                            Name = "Faculty",
+                            NormalizedName = "FACULTY"
+                        },
+                        new
+                        {
+                            Id = "01H6N7NV1MHQDXGNYH2HQT34V9",
+                            Name = "Department",
+                            NormalizedName = "DEPARTMENT"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -136,6 +168,13 @@ namespace StudyPlannerSoft.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "01H6N7NV2P1KCVKY7F6EJH0FAF",
+                            RoleId = "01H6N7NV1KTPB9QDZ7FYDJ3HHK"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -222,6 +261,25 @@ namespace StudyPlannerSoft.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "01H6N7NV2P1KCVKY7F6EJH0FAF",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "cf69eed6-ac77-4979-9452-9e10e807a71c",
+                            Email = "admin@viko.lt",
+                            EmailConfirmed = true,
+                            FavouriteColor = "Red",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@VIKO.LT",
+                            NormalizedUserName = "ADMIN@VIKO.LT",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHJNcSUm3igslMLPfx7bEcZjEjj0Sa+ZMgTYLAKu404YDO/ncJC+Lr7dNg4laDfIlA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "5c946b96-e231-4605-8d6d-1c05669617da",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@viko.lt"
+                        });
                 });
 
             modelBuilder.Entity("StudyPlannerSoft.Entities.Department", b =>
@@ -255,25 +313,25 @@ namespace StudyPlannerSoft.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "01J8FT59KNQDPP7SSBBSXZQB16",
+                            Id = "01J8W2TVJEXR4D3EQRJ84FGAW4",
                             Email = "a.kirdeikiene@eif.viko.lt",
-                            FacultyId = "01J8FT59KNCNHGTPWS257NSRT7",
+                            FacultyId = "01J8W2TVJEMFR77BG4RS58X63Z",
                             Name = "Elektronikos ir kompiuterių inžinerijos katedra",
                             ShortName = "EKIK"
                         },
                         new
                         {
-                            Id = "01J8FT59KNS2XAEKPF5KPJMZ04",
+                            Id = "01J8W2TVJEQ20DCNB1SCYC4ETY",
                             Email = "t.liogiene@eif.viko.lt",
-                            FacultyId = "01J8FT59KNCNHGTPWS257NSRT7",
+                            FacultyId = "01J8W2TVJEMFR77BG4RS58X63Z",
                             Name = "Informacinių sistemų katedra",
                             ShortName = "ISK"
                         },
                         new
                         {
-                            Id = "01J8FT59KN56MKEC8H4XQJ4G00",
+                            Id = "01J8W2TVJE15DPDWHDM94SPF5Y",
                             Email = "j.zailskas@eif.viko.lt",
-                            FacultyId = "01J8FT59KNCNHGTPWS257NSRT7",
+                            FacultyId = "01J8W2TVJEMFR77BG4RS58X63Z",
                             Name = "Programinės įrangos katedra",
                             ShortName = "PĮK"
                         });
@@ -303,70 +361,70 @@ namespace StudyPlannerSoft.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "01J8FT59KNCCCFFRX3S5ESEHTZ",
+                            Id = "01J8W2TVJEVQJXGY1VJG6TASZT",
                             Email = "administracija@atf.viko.lt",
                             Name = "Agrotechnologijų fakultetas",
                             ShortName = "ATF"
                         },
                         new
                         {
-                            Id = "01J8FT59KNFCRVTVRK128MQ3W5",
+                            Id = "01J8W2TVJEABBPVAGDFB5C8F91",
                             Email = "administracija@dif.viko.lt",
                             Name = "Dizaino fakultetas",
                             ShortName = "DIF"
                         },
                         new
                         {
-                            Id = "01J8FT59KNCNHGTPWS257NSRT7",
+                            Id = "01J8W2TVJEMFR77BG4RS58X63Z",
                             Email = "info@eif.viko.lt",
                             Name = "Elektronikos ir informatikos fakultetas",
                             ShortName = "EIF"
                         },
                         new
                         {
-                            Id = "01J8FT59KNWD3VGJJGC4AQRSNX",
+                            Id = "01J8W2TVJE72Z6K5BACB4PH73G",
                             Email = "administracija@ekf.viko.lt",
                             Name = "Ekonomikos fakultetas",
                             ShortName = "EKF"
                         },
                         new
                         {
-                            Id = "01J8FT59KN6EP6J5QEQBCYSRH1",
+                            Id = "01J8W2TVJEZ6RXY9149FWEMAB5",
                             Email = "administracija@pdf.viko.lt",
                             Name = "Pedagogikos fakultetas",
                             ShortName = "PDF"
                         },
                         new
                         {
-                            Id = "01J8FT59KNF388XPFC3ZBT9KNE",
+                            Id = "01J8W2TVJEFB80SD0ZQKAFZ293",
                             Email = "administracija@mtf.viko.lt",
                             Name = "Menų ir kūrybinių technologijų fakultetas",
                             ShortName = "MTF"
                         },
                         new
                         {
-                            Id = "01J8FT59KNG7FCWMT4Y7965RHN",
+                            Id = "01J8W2TVJETN84GR18CQ60FR35",
                             Email = "administracija@stf.viko.lt",
                             Name = "Statybos fakultetas",
                             ShortName = "STF"
                         },
                         new
                         {
-                            Id = "01J8FT59KN2G190AGQABB7AKMW",
+                            Id = "01J8W2TVJEDB419ZWVQA18E0A1",
                             Email = "info@spf.viko.lt",
                             Name = "Sveikatos priežiūros fakultetas",
                             ShortName = "SPF"
                         },
                         new
                         {
-                            Id = "01J8FT59KNM6HSHK77C0ET3B1F",
+                            Id = "01J8W2TVJE5V3GDVGQ1WE23Y8G",
                             Email = "administracija@tef.viko.lt",
                             Name = "Technikos fakultetas",
                             ShortName = "TEF"
                         },
                         new
                         {
-                            Id = "01J8FT59KNB004XT48DQFFHX1S",
+                            Id = "01J8W2TVJEE2EP44S0FKVB9CT3",
                             Email = "administracija@vvf.viko.lt",
                             Name = "Verslo vadybos fakultetas",
                             ShortName = "VVF"
@@ -441,19 +499,34 @@ namespace StudyPlannerSoft.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<decimal>("Pab")
-                        .HasColumnType("numeric");
+                    b.Property<double>("Pab")
+                        .HasColumnType("double precision");
 
                     b.HasKey("Id");
 
                     b.ToTable("Positions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "01J8W2TVJESVNWGJ82ATQ52PFE",
+                            Description = "Lektorius 760 val.",
+                            Name = "Lektorius",
+                            Pab = 8.6999999999999993
+                        },
+                        new
+                        {
+                            Id = "01J8W2TVJEEFM1PPND0VYFZ68Q",
+                            Description = "Asitentas mokslininkas 460 val.",
+                            Name = "Asistentas",
+                            Pab = 9.6999999999999993
+                        });
                 });
 
             modelBuilder.Entity("StudyPlannerSoft.Entities.StudyProgram", b =>
@@ -482,85 +555,85 @@ namespace StudyPlannerSoft.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "01J8FT59KNV2RQC8EYHRPS7H5B",
-                            DepartmentId = "01J8FT59KN56MKEC8H4XQJ4G00",
+                            Id = "01J8W2TVJEA1HKBBNFJRR411A8",
+                            DepartmentId = "01J8W2TVJE15DPDWHDM94SPF5Y",
                             Name = "Programinės įrangos testavimas",
                             StudyType = 1
                         },
                         new
                         {
-                            Id = "01J8FT59KNX5FKSK7BK626EMSE",
-                            DepartmentId = "01J8FT59KNQDPP7SSBBSXZQB16",
+                            Id = "01J8W2TVJE3JVG0EXTP88TWS8N",
+                            DepartmentId = "01J8W2TVJEXR4D3EQRJ84FGAW4",
                             Name = "Elektronikos inžinerija",
                             StudyType = 1
                         },
                         new
                         {
-                            Id = "01J8FT59KNGE5JDQCMNZWX9AV2",
-                            DepartmentId = "01J8FT59KNQDPP7SSBBSXZQB16",
+                            Id = "01J8W2TVJEPF67KY2E08ZMMA9B",
+                            DepartmentId = "01J8W2TVJEXR4D3EQRJ84FGAW4",
                             Name = "Elektronikos inžinerija",
                             StudyType = 2
                         },
                         new
                         {
-                            Id = "01J8FT59KNWFJ2K88K40A78FV8",
-                            DepartmentId = "01J8FT59KNS2XAEKPF5KPJMZ04",
+                            Id = "01J8W2TVJESJKASAFHZYXX728G",
+                            DepartmentId = "01J8W2TVJEQ20DCNB1SCYC4ETY",
                             Name = "Informacijos sistemos",
                             StudyType = 1
                         },
                         new
                         {
-                            Id = "01J8FT59KNX6HW5PXAWARPEZDG",
-                            DepartmentId = "01J8FT59KNS2XAEKPF5KPJMZ04",
+                            Id = "01J8W2TVJENY5C2BRW0QSEB8HD",
+                            DepartmentId = "01J8W2TVJEQ20DCNB1SCYC4ETY",
                             Name = "Informacijos sistemos",
                             StudyType = 2
                         },
                         new
                         {
-                            Id = "01J8FT59KN388X90J3Z17NVHP1",
-                            DepartmentId = "01J8FT59KNS2XAEKPF5KPJMZ04",
+                            Id = "01J8W2TVJEPT9546YQGPD14A69",
+                            DepartmentId = "01J8W2TVJEQ20DCNB1SCYC4ETY",
                             Name = "Informacijos sistemos",
                             StudyType = 3
                         },
                         new
                         {
-                            Id = "01J8FT59KN95NTXK5AZCCT499P",
-                            DepartmentId = "01J8FT59KNQDPP7SSBBSXZQB16",
+                            Id = "01J8W2TVJE89KE2X65EFDHVDDW",
+                            DepartmentId = "01J8W2TVJEXR4D3EQRJ84FGAW4",
                             Name = "Kompiuterių inžinerija",
                             StudyType = 1
                         },
                         new
                         {
-                            Id = "01J8FT59KN2DAZVT19P7M0ARD4",
-                            DepartmentId = "01J8FT59KNQDPP7SSBBSXZQB16",
+                            Id = "01J8W2TVJE92M0XWVVACEGQD1P",
+                            DepartmentId = "01J8W2TVJEXR4D3EQRJ84FGAW4",
                             Name = "Kompiuterių inžinerija",
                             StudyType = 2
                         },
                         new
                         {
-                            Id = "01J8FT59KN4CRB6EYSMEVKJA4N",
-                            DepartmentId = "01J8FT59KN56MKEC8H4XQJ4G00",
+                            Id = "01J8W2TVJE2ZNJE3T33MZJNPXZ",
+                            DepartmentId = "01J8W2TVJE15DPDWHDM94SPF5Y",
                             Name = "Programų sistemos",
                             StudyType = 1
                         },
                         new
                         {
-                            Id = "01J8FT59KN1RNXGZHBHNGYH9Q8",
-                            DepartmentId = "01J8FT59KN56MKEC8H4XQJ4G00",
+                            Id = "01J8W2TVJE3F47K4N9N4XFMGFE",
+                            DepartmentId = "01J8W2TVJE15DPDWHDM94SPF5Y",
                             Name = "Programų sistemos",
                             StudyType = 4
                         },
                         new
                         {
-                            Id = "01J8FT59KNHS7WNB1149HY3H8H",
-                            DepartmentId = "01J8FT59KN56MKEC8H4XQJ4G00",
+                            Id = "01J8W2TVJEQ06N16FBFPW72KRC",
+                            DepartmentId = "01J8W2TVJE15DPDWHDM94SPF5Y",
                             Name = "Programų sistemos",
                             StudyType = 2
                         },
                         new
                         {
-                            Id = "01J8FT59KNQH5ZCR83C0QD3YNW",
-                            DepartmentId = "01J8FT59KN56MKEC8H4XQJ4G00",
+                            Id = "01J8W2TVJE1R10SF27MQ69T1ZY",
+                            DepartmentId = "01J8W2TVJE15DPDWHDM94SPF5Y",
                             Name = "Programų sistemos",
                             StudyType = 3
                         });
@@ -571,7 +644,16 @@ namespace StudyPlannerSoft.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
+                    b.Property<string>("Category")
+                        .HasColumnType("text");
+
+                    b.Property<string>("CategoryDescription")
+                        .HasColumnType("text");
+
                     b.Property<double>("ConsultationCount")
+                        .HasColumnType("double precision");
+
+                    b.Property<double?>("CourseWorkHoursCount")
                         .HasColumnType("double precision");
 
                     b.Property<int>("Credits")
@@ -581,17 +663,19 @@ namespace StudyPlannerSoft.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("EvaluationFormShort")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<double?>("ExamHours")
+                        .HasColumnType("double precision");
 
                     b.Property<double>("FinalProjectExamCount")
                         .HasColumnType("double precision");
 
-                    b.Property<double>("GradingHoursCount")
+                    b.Property<double?>("GradingHoursCount")
                         .HasColumnType("double precision");
 
                     b.Property<double>("GradingNumberCount")
+                        .HasColumnType("double precision");
+
+                    b.Property<double?>("HomeworkHoursCount")
                         .HasColumnType("double precision");
 
                     b.Property<double>("LectureHours")
@@ -609,19 +693,25 @@ namespace StudyPlannerSoft.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<double>("OtherContactHoursCount")
+                    b.Property<double?>("OtherContactHoursCount")
                         .HasColumnType("double precision");
 
-                    b.Property<double>("OtherNonContactCount")
+                    b.Property<double?>("OtherNonContactCount")
                         .HasColumnType("double precision");
 
                     b.Property<double>("PracticeHours")
+                        .HasColumnType("double precision");
+
+                    b.Property<double?>("PracticeReportHoursCount")
                         .HasColumnType("double precision");
 
                     b.Property<double?>("RemoteLectureHours")
                         .HasColumnType("double precision");
 
                     b.Property<double?>("RemotePracticeHours")
+                        .HasColumnType("double precision");
+
+                    b.Property<double?>("RemoteTeachingHoursCount")
                         .HasColumnType("double precision");
 
                     b.Property<double>("SelfStudyHours")
@@ -639,10 +729,6 @@ namespace StudyPlannerSoft.Migrations
 
                     b.Property<int>("SubjectType")
                         .HasColumnType("integer");
-
-                    b.Property<string>("SubjectTypeCategoryDescription")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
