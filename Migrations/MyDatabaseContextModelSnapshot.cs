@@ -264,16 +264,16 @@ namespace StudyPlannerSoft.Migrations
                         {
                             Id = "01H6N7NV2P1KCVKY7F6EJH0FAF",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f33e6a0f-bea2-4915-a790-880211f25a10",
+                            ConcurrencyStamp = "b873b212-9428-43b2-995b-2ac547786a4c",
                             Email = "admin@viko.lt",
                             EmailConfirmed = true,
                             FavouriteColor = "Red",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@VIKO.LT",
                             NormalizedUserName = "ADMIN@VIKO.LT",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDWMbXxKv1MztljkplF3pnHtkgZ6Lrq4p6JBlA/ZaCKrgbJe3X6fNJKTsd3JUGyEig==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMJxJeC0xqu+zVdZPar5c5gx6JHiyajsWVWNSF5lHZH+v2JAdnx7oQJWTIpusahMGw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "97fcad78-ad33-42a9-a5f7-bceb30d756aa",
+                            SecurityStamp = "aaafb56d-9dc4-4ee6-9330-f1108f8932d9",
                             TwoFactorEnabled = false,
                             UserName = "admin@viko.lt"
                         });
@@ -310,25 +310,25 @@ namespace StudyPlannerSoft.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "01J8W9XMWJJM5ZB7JG176YE8EA",
+                            Id = "01J8X1KBN4J24F0W9Y0VYJ20MY",
                             Email = "a.kirdeikiene@eif.viko.lt",
-                            FacultyId = "01J8W9XMWJ0VTKTD04PGMYB348",
+                            FacultyId = "01J8X1KBN45G1PCJR79V148SAG",
                             Name = "Elektronikos ir kompiuterių inžinerijos katedra",
                             ShortName = "EKIK"
                         },
                         new
                         {
-                            Id = "01J8W9XMWJGXNN75CBGXPWJJC5",
+                            Id = "01J8X1KBN4PG51SNTYRBPTBVHH",
                             Email = "t.liogiene@eif.viko.lt",
-                            FacultyId = "01J8W9XMWJ0VTKTD04PGMYB348",
+                            FacultyId = "01J8X1KBN45G1PCJR79V148SAG",
                             Name = "Informacinių sistemų katedra",
                             ShortName = "ISK"
                         },
                         new
                         {
-                            Id = "01J8W9XMWJ9MED13FWS15SA5QZ",
+                            Id = "01J8X1KBN4P31VTJP709FK63D9",
                             Email = "j.zailskas@eif.viko.lt",
-                            FacultyId = "01J8W9XMWJ0VTKTD04PGMYB348",
+                            FacultyId = "01J8X1KBN45G1PCJR79V148SAG",
                             Name = "Programinės įrangos katedra",
                             ShortName = "PĮK"
                         });
@@ -358,70 +358,70 @@ namespace StudyPlannerSoft.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "01J8W9XMWJ4P2JW7ZZKQXXJG96",
+                            Id = "01J8X1KBN4728FWH3T8QZSGYJ2",
                             Email = "administracija@atf.viko.lt",
                             Name = "Agrotechnologijų fakultetas",
                             ShortName = "ATF"
                         },
                         new
                         {
-                            Id = "01J8W9XMWJDARAH2CNJP5YNFTH",
+                            Id = "01J8X1KBN4WCBS1C9DGTRB1JQV",
                             Email = "administracija@dif.viko.lt",
                             Name = "Dizaino fakultetas",
                             ShortName = "DIF"
                         },
                         new
                         {
-                            Id = "01J8W9XMWJ0VTKTD04PGMYB348",
+                            Id = "01J8X1KBN45G1PCJR79V148SAG",
                             Email = "info@eif.viko.lt",
                             Name = "Elektronikos ir informatikos fakultetas",
                             ShortName = "EIF"
                         },
                         new
                         {
-                            Id = "01J8W9XMWJN0JN0PG13DCP8QW2",
+                            Id = "01J8X1KBN438MMGB0EX4B9FP8S",
                             Email = "administracija@ekf.viko.lt",
                             Name = "Ekonomikos fakultetas",
                             ShortName = "EKF"
                         },
                         new
                         {
-                            Id = "01J8W9XMWJD6J2229K0N5V8Q3G",
+                            Id = "01J8X1KBN49G2DTX29D59B40J1",
                             Email = "administracija@pdf.viko.lt",
                             Name = "Pedagogikos fakultetas",
                             ShortName = "PDF"
                         },
                         new
                         {
-                            Id = "01J8W9XMWJDQ19FE1TB9AA5HAA",
+                            Id = "01J8X1KBN4T3HXAEBYQSJH73PX",
                             Email = "administracija@mtf.viko.lt",
                             Name = "Menų ir kūrybinių technologijų fakultetas",
                             ShortName = "MTF"
                         },
                         new
                         {
-                            Id = "01J8W9XMWJDS0DBH99V57BRN98",
+                            Id = "01J8X1KBN47HH85X9NXYQJNN2Z",
                             Email = "administracija@stf.viko.lt",
                             Name = "Statybos fakultetas",
                             ShortName = "STF"
                         },
                         new
                         {
-                            Id = "01J8W9XMWJRB59FBYX5BANQHJ7",
+                            Id = "01J8X1KBN4339KFM8DCRYM8TBR",
                             Email = "info@spf.viko.lt",
                             Name = "Sveikatos priežiūros fakultetas",
                             ShortName = "SPF"
                         },
                         new
                         {
-                            Id = "01J8W9XMWJ4NGXSZV0GMQAA9ZR",
+                            Id = "01J8X1KBN428W8N59FJQKSEVST",
                             Email = "administracija@tef.viko.lt",
                             Name = "Technikos fakultetas",
                             ShortName = "TEF"
                         },
                         new
                         {
-                            Id = "01J8W9XMWJAJF0WMCAQCPM1W9B",
+                            Id = "01J8X1KBN448HBP2F6XH4WB5YW",
                             Email = "administracija@vvf.viko.lt",
                             Name = "Verslo vadybos fakultetas",
                             ShortName = "VVF"
@@ -463,29 +463,38 @@ namespace StudyPlannerSoft.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
-                    b.Property<int>("CurrentYear")
-                        .HasColumnType("integer");
+                    b.Property<string>("LabelName")
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("OtherType")
+                    b.Property<int?>("OtherType")
                         .HasColumnType("integer");
 
                     b.Property<int>("Semester")
                         .HasColumnType("integer");
 
-                    b.Property<int>("SemesterType")
+                    b.Property<string>("StudyProgramId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("SubGroupCount")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)")
+                        .HasDefaultValue("1");
+
+                    b.Property<int?>("Vf")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Vf")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Vnf")
+                    b.Property<int?>("Vnf")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("StudyProgramId");
 
                     b.ToTable("PlannedGroups");
                 });
@@ -512,119 +521,119 @@ namespace StudyPlannerSoft.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "01J8W9XMWJGHR9TAK45PBWHVRH",
+                            Id = "01J8X1KBN47CQA4DZ8DDGC6G1H",
                             Description = "Profesorius",
                             Name = "Profesorius_23",
                             Pab = 2.4199999999999999
                         },
                         new
                         {
-                            Id = "01J8W9XMWJR7V8MH2PXFBCQ1TR",
+                            Id = "01J8X1KBN4KY9V3P4XN0CEKTDB",
                             Description = "Docento, turinčio mokslo daktaro laipsnį",
                             Name = "Docentas_23",
                             Pab = 2.02
                         },
                         new
                         {
-                            Id = "01J8W9XMWJCMY65RHDB2BNG36Z",
+                            Id = "01J8X1KBN4C91HQGM8Z8VRXTZY",
                             Description = "Docento, pripažinto menininko, o taip pat AT pritarimu vieneriems metams priimamam asmeniui, turinčiam didelę praktinę patirtį dėstomo dalyko srityje ir magistro kvalifikacinį laipsnį ar jam prilygintą aukštojo mokslo kvalifikaciją",
                             Name = "Docentas_menininkas_23",
                             Pab = 1.77
                         },
                         new
                         {
-                            Id = "01J8W9XMWJ4XS1E74K28BZ17K3",
+                            Id = "01J8X1KBN4F7308MM5GB3SW763",
                             Description = "Lektoriaus, turinčio mokslo daktaro laipsnį",
                             Name = "Lektorius dr._23",
                             Pab = 1.72
                         },
                         new
                         {
-                            Id = "01J8W9XMWJRSTRT3D1CDPS1KBR",
+                            Id = "01J8X1KBN4JT9FMPSP36VH8WYF",
                             Description = "Lektorius",
                             Name = "Lektorius_23 (d)",
                             Pab = 1.6000000000000001
                         },
                         new
                         {
-                            Id = "01J8W9XMWJ0D52D4AY34K3VBVM",
+                            Id = "01J8X1KBN40X32BMEQE919MN1C",
                             Description = "Lektorius",
                             Name = "Lektorius_23 (m)",
                             Pab = 1.4299999999999999
                         },
                         new
                         {
-                            Id = "01J8W9XMWJ9XRJ8K8FZ3X91006",
+                            Id = "01J8X1KBN4X547E9KT08DPPG0G",
                             Description = "Asistento, turinčio magistro laipsnį",
                             Name = "Asistentas_23 (mag.)",
                             Pab = 1.3300000000000001
                         },
                         new
                         {
-                            Id = "01J8W9XMWJA2J9CBWDEB06SDN0",
+                            Id = "01J8X1KBN41QFT2933X1BPMG9X",
                             Description = "Asistento, turinčio bakalauro arba profesinio bakalauro laipsnį",
                             Name = "Asistentas_23 (bak.)",
                             Pab = 1.3100000000000001
                         },
                         new
                         {
-                            Id = "01J8W9XMWJ4CTZ33QXV1R8BA38",
+                            Id = "01J8X1KBN42DB3RSTX9H3EGBCA",
                             Description = "Profesorius",
                             Name = "Profesorius_24",
                             Pab = 2.4199999999999999
                         },
                         new
                         {
-                            Id = "01J8W9XMWJM9ZZBSX8ZSWPEE41",
+                            Id = "01J8X1KBN40C1840N0J8RMSW1P",
                             Description = "Kviestinis profesorius",
                             Name = "Profesorius_Kv_24",
                             Pab = 2.4199999999999999
                         },
                         new
                         {
-                            Id = "01J8W9XMWJS66QV4TJVYJS4MQB",
+                            Id = "01J8X1KBN4H5YNBBJ561PD83AD",
                             Description = "Docentas",
                             Name = "Docentas_24",
                             Pab = 2.02
                         },
                         new
                         {
-                            Id = "01J8W9XMWJVXVD6D97YJ7VMK4B",
+                            Id = "01J8X1KBN4DQXMPY58D37HC67W",
                             Description = "Kviestinis docentas",
                             Name = "Docentas_Kv_24",
                             Pab = 2.02
                         },
                         new
                         {
-                            Id = "01J8W9XMWJS9TG5SK22E2D3KH3",
+                            Id = "01J8X1KBN4G0BAQYGXZ2NFV5DY",
                             Description = "Asistentas",
                             Name = "Asistentas_24",
                             Pab = 1.8400000000000001
                         },
                         new
                         {
-                            Id = "01J8W9XMWJCAWACKTXMQY3K1A5",
+                            Id = "01J8X1KBN4PB2KR2RY350CC153",
                             Description = "Jaunesnysis asistentas",
                             Name = "Jaunesnysis asistentas_24",
                             Pab = 1.78
                         },
                         new
                         {
-                            Id = "01J8W9XMWJPFGEY3DA3N6PJZ4S",
+                            Id = "01J8X1KBN423YTN294GEW2C8MQ",
                             Description = "Vyresnysis lektorius",
                             Name = "Vyresnysis lektorius_24",
                             Pab = 1.72
                         },
                         new
                         {
-                            Id = "01J8W9XMWJRPPA5F96D7Z0B2TE",
+                            Id = "01J8X1KBN42XWYWBYZ48W64TR9",
                             Description = "Lektorius",
                             Name = "Lektorius_24",
                             Pab = 1.6000000000000001
                         },
                         new
                         {
-                            Id = "01J8W9XMWJF7H9C25DREXVHRFZ",
+                            Id = "01J8X1KBN4A66M7335Q92A1QV8",
                             Description = "Dėstytojas praktikas",
                             Name = "Dėstytojas praktikas_24",
                             Pab = 1.72
@@ -657,85 +666,85 @@ namespace StudyPlannerSoft.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "01J8W9XMWJJ8TPS5SENAFE8G39",
-                            DepartmentId = "01J8W9XMWJ9MED13FWS15SA5QZ",
+                            Id = "01J8X1KBN4WA39JT8R57ZFM1GN",
+                            DepartmentId = "01J8X1KBN4P31VTJP709FK63D9",
                             Name = "Programinės įrangos testavimas",
                             StudyType = 1
                         },
                         new
                         {
-                            Id = "01J8W9XMWJJAYEGVG6P8QX1XQ3",
-                            DepartmentId = "01J8W9XMWJJM5ZB7JG176YE8EA",
+                            Id = "01J8X1KBN4A82C9F3GWTPNPBAE",
+                            DepartmentId = "01J8X1KBN4J24F0W9Y0VYJ20MY",
                             Name = "Elektronikos inžinerija",
                             StudyType = 1
                         },
                         new
                         {
-                            Id = "01J8W9XMWJW045S0W50CF8CFZG",
-                            DepartmentId = "01J8W9XMWJJM5ZB7JG176YE8EA",
+                            Id = "01J8X1KBN4DC4KAGKRFY02BG2X",
+                            DepartmentId = "01J8X1KBN4J24F0W9Y0VYJ20MY",
                             Name = "Elektronikos inžinerija",
                             StudyType = 2
                         },
                         new
                         {
-                            Id = "01J8W9XMWJ0PACW5MGAA58S1JM",
-                            DepartmentId = "01J8W9XMWJGXNN75CBGXPWJJC5",
+                            Id = "01J8X1KBN4A1Y7MT6G98T16ZNR",
+                            DepartmentId = "01J8X1KBN4PG51SNTYRBPTBVHH",
                             Name = "Informacijos sistemos",
                             StudyType = 1
                         },
                         new
                         {
-                            Id = "01J8W9XMWJ54PQA5WPKNC26JVK",
-                            DepartmentId = "01J8W9XMWJGXNN75CBGXPWJJC5",
+                            Id = "01J8X1KBN4XGFSHXRA2MJN36ED",
+                            DepartmentId = "01J8X1KBN4PG51SNTYRBPTBVHH",
                             Name = "Informacijos sistemos",
                             StudyType = 2
                         },
                         new
                         {
-                            Id = "01J8W9XMWJAGX5RHH00AKY382Q",
-                            DepartmentId = "01J8W9XMWJGXNN75CBGXPWJJC5",
+                            Id = "01J8X1KBN4Q913BSYZVGXZRPM9",
+                            DepartmentId = "01J8X1KBN4PG51SNTYRBPTBVHH",
                             Name = "Informacijos sistemos",
                             StudyType = 3
                         },
                         new
                         {
-                            Id = "01J8W9XMWJ9R7HN72XT0CY0RH8",
-                            DepartmentId = "01J8W9XMWJJM5ZB7JG176YE8EA",
+                            Id = "01J8X1KBN49GHGXZCDZZ80GS1V",
+                            DepartmentId = "01J8X1KBN4J24F0W9Y0VYJ20MY",
                             Name = "Kompiuterių inžinerija",
                             StudyType = 1
                         },
                         new
                         {
-                            Id = "01J8W9XMWJP1T2CQGT5CCWMXJK",
-                            DepartmentId = "01J8W9XMWJJM5ZB7JG176YE8EA",
+                            Id = "01J8X1KBN47WJA5NY43HGRZ3VV",
+                            DepartmentId = "01J8X1KBN4J24F0W9Y0VYJ20MY",
                             Name = "Kompiuterių inžinerija",
                             StudyType = 2
                         },
                         new
                         {
-                            Id = "01J8W9XMWJG7548N8MRZXZ5G5Y",
-                            DepartmentId = "01J8W9XMWJ9MED13FWS15SA5QZ",
+                            Id = "01J8X1KBN43WV87VKAHAZZ6MX9",
+                            DepartmentId = "01J8X1KBN4P31VTJP709FK63D9",
                             Name = "Programų sistemos",
                             StudyType = 1
                         },
                         new
                         {
-                            Id = "01J8W9XMWJJQF5Y6SBGX0491EW",
-                            DepartmentId = "01J8W9XMWJ9MED13FWS15SA5QZ",
+                            Id = "01J8X1KBN45GHZD6B59W0XRFVP",
+                            DepartmentId = "01J8X1KBN4P31VTJP709FK63D9",
                             Name = "Programų sistemos",
                             StudyType = 4
                         },
                         new
                         {
-                            Id = "01J8W9XMWJEWET9AB9V8KM5A11",
-                            DepartmentId = "01J8W9XMWJ9MED13FWS15SA5QZ",
+                            Id = "01J8X1KBN4WWK4TG26K4CH2NSG",
+                            DepartmentId = "01J8X1KBN4P31VTJP709FK63D9",
                             Name = "Programų sistemos",
                             StudyType = 2
                         },
                         new
                         {
-                            Id = "01J8W9XMWJVH2RJ3NKQWZ3Z066",
-                            DepartmentId = "01J8W9XMWJ9MED13FWS15SA5QZ",
+                            Id = "01J8X1KBN4M2A459YPTDPM75JY",
+                            DepartmentId = "01J8X1KBN4P31VTJP709FK63D9",
                             Name = "Programų sistemos",
                             StudyType = 3
                         });
@@ -920,6 +929,17 @@ namespace StudyPlannerSoft.Migrations
                     b.Navigation("Position");
                 });
 
+            modelBuilder.Entity("StudyPlannerSoft.Entities.PlannedGroup", b =>
+                {
+                    b.HasOne("StudyPlannerSoft.Entities.StudyProgram", "StudyProgram")
+                        .WithMany("PlannedGroups")
+                        .HasForeignKey("StudyProgramId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("StudyProgram");
+                });
+
             modelBuilder.Entity("StudyPlannerSoft.Entities.StudyProgram", b =>
                 {
                     b.HasOne("StudyPlannerSoft.Entities.Department", "Department")
@@ -956,6 +976,8 @@ namespace StudyPlannerSoft.Migrations
 
             modelBuilder.Entity("StudyPlannerSoft.Entities.StudyProgram", b =>
                 {
+                    b.Navigation("PlannedGroups");
+
                     b.Navigation("Subjects");
                 });
 #pragma warning restore 612, 618

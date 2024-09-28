@@ -69,24 +69,6 @@ namespace StudyPlannerSoft.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PlannedGroups",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "text", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Semester = table.Column<int>(type: "integer", nullable: false),
-                    Vf = table.Column<int>(type: "integer", nullable: false),
-                    Vnf = table.Column<int>(type: "integer", nullable: false),
-                    OtherType = table.Column<int>(type: "integer", nullable: false),
-                    CurrentYear = table.Column<int>(type: "integer", nullable: false),
-                    SemesterType = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PlannedGroups", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Positions",
                 columns: table => new
                 {
@@ -275,6 +257,31 @@ namespace StudyPlannerSoft.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PlannedGroups",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Semester = table.Column<int>(type: "integer", nullable: false),
+                    Vf = table.Column<int>(type: "integer", nullable: true),
+                    Vnf = table.Column<int>(type: "integer", nullable: true),
+                    OtherType = table.Column<int>(type: "integer", nullable: true),
+                    LabelName = table.Column<string>(type: "text", nullable: true),
+                    StudyProgramId = table.Column<string>(type: "text", nullable: false),
+                    SubGroupCount = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: true, defaultValue: "1")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlannedGroups", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PlannedGroups_StudyPrograms_StudyProgramId",
+                        column: x => x.StudyProgramId,
+                        principalTable: "StudyPrograms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Subjects",
                 columns: table => new
                 {
@@ -333,23 +340,23 @@ namespace StudyPlannerSoft.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FavouriteColor", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "01H6N7NV2P1KCVKY7F6EJH0FAF", 0, "cf69eed6-ac77-4979-9452-9e10e807a71c", "admin@viko.lt", true, "Red", false, null, "ADMIN@VIKO.LT", "ADMIN@VIKO.LT", "AQAAAAIAAYagAAAAEHJNcSUm3igslMLPfx7bEcZjEjj0Sa+ZMgTYLAKu404YDO/ncJC+Lr7dNg4laDfIlA==", null, false, "5c946b96-e231-4605-8d6d-1c05669617da", false, "admin@viko.lt" });
+                values: new object[] { "01H6N7NV2P1KCVKY7F6EJH0FAF", 0, "b873b212-9428-43b2-995b-2ac547786a4c", "admin@viko.lt", true, "Red", false, null, "ADMIN@VIKO.LT", "ADMIN@VIKO.LT", "AQAAAAIAAYagAAAAEMJxJeC0xqu+zVdZPar5c5gx6JHiyajsWVWNSF5lHZH+v2JAdnx7oQJWTIpusahMGw==", null, false, "aaafb56d-9dc4-4ee6-9330-f1108f8932d9", false, "admin@viko.lt" });
 
             migrationBuilder.InsertData(
                 table: "Faculties",
                 columns: new[] { "Id", "Email", "Name", "ShortName" },
                 values: new object[,]
                 {
-                    { "01J8W2TVJE5V3GDVGQ1WE23Y8G", "administracija@tef.viko.lt", "Technikos fakultetas", "TEF" },
-                    { "01J8W2TVJE72Z6K5BACB4PH73G", "administracija@ekf.viko.lt", "Ekonomikos fakultetas", "EKF" },
-                    { "01J8W2TVJEABBPVAGDFB5C8F91", "administracija@dif.viko.lt", "Dizaino fakultetas", "DIF" },
-                    { "01J8W2TVJEDB419ZWVQA18E0A1", "info@spf.viko.lt", "Sveikatos priežiūros fakultetas", "SPF" },
-                    { "01J8W2TVJEE2EP44S0FKVB9CT3", "administracija@vvf.viko.lt", "Verslo vadybos fakultetas", "VVF" },
-                    { "01J8W2TVJEFB80SD0ZQKAFZ293", "administracija@mtf.viko.lt", "Menų ir kūrybinių technologijų fakultetas", "MTF" },
-                    { "01J8W2TVJEMFR77BG4RS58X63Z", "info@eif.viko.lt", "Elektronikos ir informatikos fakultetas", "EIF" },
-                    { "01J8W2TVJETN84GR18CQ60FR35", "administracija@stf.viko.lt", "Statybos fakultetas", "STF" },
-                    { "01J8W2TVJEVQJXGY1VJG6TASZT", "administracija@atf.viko.lt", "Agrotechnologijų fakultetas", "ATF" },
-                    { "01J8W2TVJEZ6RXY9149FWEMAB5", "administracija@pdf.viko.lt", "Pedagogikos fakultetas", "PDF" }
+                    { "01J8X1KBN428W8N59FJQKSEVST", "administracija@tef.viko.lt", "Technikos fakultetas", "TEF" },
+                    { "01J8X1KBN4339KFM8DCRYM8TBR", "info@spf.viko.lt", "Sveikatos priežiūros fakultetas", "SPF" },
+                    { "01J8X1KBN438MMGB0EX4B9FP8S", "administracija@ekf.viko.lt", "Ekonomikos fakultetas", "EKF" },
+                    { "01J8X1KBN448HBP2F6XH4WB5YW", "administracija@vvf.viko.lt", "Verslo vadybos fakultetas", "VVF" },
+                    { "01J8X1KBN45G1PCJR79V148SAG", "info@eif.viko.lt", "Elektronikos ir informatikos fakultetas", "EIF" },
+                    { "01J8X1KBN4728FWH3T8QZSGYJ2", "administracija@atf.viko.lt", "Agrotechnologijų fakultetas", "ATF" },
+                    { "01J8X1KBN47HH85X9NXYQJNN2Z", "administracija@stf.viko.lt", "Statybos fakultetas", "STF" },
+                    { "01J8X1KBN49G2DTX29D59B40J1", "administracija@pdf.viko.lt", "Pedagogikos fakultetas", "PDF" },
+                    { "01J8X1KBN4T3HXAEBYQSJH73PX", "administracija@mtf.viko.lt", "Menų ir kūrybinių technologijų fakultetas", "MTF" },
+                    { "01J8X1KBN4WCBS1C9DGTRB1JQV", "administracija@dif.viko.lt", "Dizaino fakultetas", "DIF" }
                 });
 
             migrationBuilder.InsertData(
@@ -357,8 +364,23 @@ namespace StudyPlannerSoft.Migrations
                 columns: new[] { "Id", "Description", "Name", "Pab" },
                 values: new object[,]
                 {
-                    { "01J8W2TVJEEFM1PPND0VYFZ68Q", "Asitentas mokslininkas 460 val.", "Asistentas", 9.6999999999999993 },
-                    { "01J8W2TVJESVNWGJ82ATQ52PFE", "Lektorius 760 val.", "Lektorius", 8.6999999999999993 }
+                    { "01J8X1KBN40C1840N0J8RMSW1P", "Kviestinis profesorius", "Profesorius_Kv_24", 2.4199999999999999 },
+                    { "01J8X1KBN40X32BMEQE919MN1C", "Lektorius", "Lektorius_23 (m)", 1.4299999999999999 },
+                    { "01J8X1KBN41QFT2933X1BPMG9X", "Asistento, turinčio bakalauro arba profesinio bakalauro laipsnį", "Asistentas_23 (bak.)", 1.3100000000000001 },
+                    { "01J8X1KBN423YTN294GEW2C8MQ", "Vyresnysis lektorius", "Vyresnysis lektorius_24", 1.72 },
+                    { "01J8X1KBN42DB3RSTX9H3EGBCA", "Profesorius", "Profesorius_24", 2.4199999999999999 },
+                    { "01J8X1KBN42XWYWBYZ48W64TR9", "Lektorius", "Lektorius_24", 1.6000000000000001 },
+                    { "01J8X1KBN47CQA4DZ8DDGC6G1H", "Profesorius", "Profesorius_23", 2.4199999999999999 },
+                    { "01J8X1KBN4A66M7335Q92A1QV8", "Dėstytojas praktikas", "Dėstytojas praktikas_24", 1.72 },
+                    { "01J8X1KBN4C91HQGM8Z8VRXTZY", "Docento, pripažinto menininko, o taip pat AT pritarimu vieneriems metams priimamam asmeniui, turinčiam didelę praktinę patirtį dėstomo dalyko srityje ir magistro kvalifikacinį laipsnį ar jam prilygintą aukštojo mokslo kvalifikaciją", "Docentas_menininkas_23", 1.77 },
+                    { "01J8X1KBN4DQXMPY58D37HC67W", "Kviestinis docentas", "Docentas_Kv_24", 2.02 },
+                    { "01J8X1KBN4F7308MM5GB3SW763", "Lektoriaus, turinčio mokslo daktaro laipsnį", "Lektorius dr._23", 1.72 },
+                    { "01J8X1KBN4G0BAQYGXZ2NFV5DY", "Asistentas", "Asistentas_24", 1.8400000000000001 },
+                    { "01J8X1KBN4H5YNBBJ561PD83AD", "Docentas", "Docentas_24", 2.02 },
+                    { "01J8X1KBN4JT9FMPSP36VH8WYF", "Lektorius", "Lektorius_23 (d)", 1.6000000000000001 },
+                    { "01J8X1KBN4KY9V3P4XN0CEKTDB", "Docento, turinčio mokslo daktaro laipsnį", "Docentas_23", 2.02 },
+                    { "01J8X1KBN4PB2KR2RY350CC153", "Jaunesnysis asistentas", "Jaunesnysis asistentas_24", 1.78 },
+                    { "01J8X1KBN4X547E9KT08DPPG0G", "Asistento, turinčio magistro laipsnį", "Asistentas_23 (mag.)", 1.3300000000000001 }
                 });
 
             migrationBuilder.InsertData(
@@ -371,9 +393,9 @@ namespace StudyPlannerSoft.Migrations
                 columns: new[] { "Id", "Email", "FacultyId", "Name", "ShortName" },
                 values: new object[,]
                 {
-                    { "01J8W2TVJE15DPDWHDM94SPF5Y", "j.zailskas@eif.viko.lt", "01J8W2TVJEMFR77BG4RS58X63Z", "Programinės įrangos katedra", "PĮK" },
-                    { "01J8W2TVJEQ20DCNB1SCYC4ETY", "t.liogiene@eif.viko.lt", "01J8W2TVJEMFR77BG4RS58X63Z", "Informacinių sistemų katedra", "ISK" },
-                    { "01J8W2TVJEXR4D3EQRJ84FGAW4", "a.kirdeikiene@eif.viko.lt", "01J8W2TVJEMFR77BG4RS58X63Z", "Elektronikos ir kompiuterių inžinerijos katedra", "EKIK" }
+                    { "01J8X1KBN4J24F0W9Y0VYJ20MY", "a.kirdeikiene@eif.viko.lt", "01J8X1KBN45G1PCJR79V148SAG", "Elektronikos ir kompiuterių inžinerijos katedra", "EKIK" },
+                    { "01J8X1KBN4P31VTJP709FK63D9", "j.zailskas@eif.viko.lt", "01J8X1KBN45G1PCJR79V148SAG", "Programinės įrangos katedra", "PĮK" },
+                    { "01J8X1KBN4PG51SNTYRBPTBVHH", "t.liogiene@eif.viko.lt", "01J8X1KBN45G1PCJR79V148SAG", "Informacinių sistemų katedra", "ISK" }
                 });
 
             migrationBuilder.InsertData(
@@ -381,18 +403,18 @@ namespace StudyPlannerSoft.Migrations
                 columns: new[] { "Id", "DepartmentId", "Name", "StudyType" },
                 values: new object[,]
                 {
-                    { "01J8W2TVJE1R10SF27MQ69T1ZY", "01J8W2TVJE15DPDWHDM94SPF5Y", "Programų sistemos", 3 },
-                    { "01J8W2TVJE2ZNJE3T33MZJNPXZ", "01J8W2TVJE15DPDWHDM94SPF5Y", "Programų sistemos", 1 },
-                    { "01J8W2TVJE3F47K4N9N4XFMGFE", "01J8W2TVJE15DPDWHDM94SPF5Y", "Programų sistemos", 4 },
-                    { "01J8W2TVJE3JVG0EXTP88TWS8N", "01J8W2TVJEXR4D3EQRJ84FGAW4", "Elektronikos inžinerija", 1 },
-                    { "01J8W2TVJE89KE2X65EFDHVDDW", "01J8W2TVJEXR4D3EQRJ84FGAW4", "Kompiuterių inžinerija", 1 },
-                    { "01J8W2TVJE92M0XWVVACEGQD1P", "01J8W2TVJEXR4D3EQRJ84FGAW4", "Kompiuterių inžinerija", 2 },
-                    { "01J8W2TVJEA1HKBBNFJRR411A8", "01J8W2TVJE15DPDWHDM94SPF5Y", "Programinės įrangos testavimas", 1 },
-                    { "01J8W2TVJENY5C2BRW0QSEB8HD", "01J8W2TVJEQ20DCNB1SCYC4ETY", "Informacijos sistemos", 2 },
-                    { "01J8W2TVJEPF67KY2E08ZMMA9B", "01J8W2TVJEXR4D3EQRJ84FGAW4", "Elektronikos inžinerija", 2 },
-                    { "01J8W2TVJEPT9546YQGPD14A69", "01J8W2TVJEQ20DCNB1SCYC4ETY", "Informacijos sistemos", 3 },
-                    { "01J8W2TVJEQ06N16FBFPW72KRC", "01J8W2TVJE15DPDWHDM94SPF5Y", "Programų sistemos", 2 },
-                    { "01J8W2TVJESJKASAFHZYXX728G", "01J8W2TVJEQ20DCNB1SCYC4ETY", "Informacijos sistemos", 1 }
+                    { "01J8X1KBN43WV87VKAHAZZ6MX9", "01J8X1KBN4P31VTJP709FK63D9", "Programų sistemos", 1 },
+                    { "01J8X1KBN45GHZD6B59W0XRFVP", "01J8X1KBN4P31VTJP709FK63D9", "Programų sistemos", 4 },
+                    { "01J8X1KBN47WJA5NY43HGRZ3VV", "01J8X1KBN4J24F0W9Y0VYJ20MY", "Kompiuterių inžinerija", 2 },
+                    { "01J8X1KBN49GHGXZCDZZ80GS1V", "01J8X1KBN4J24F0W9Y0VYJ20MY", "Kompiuterių inžinerija", 1 },
+                    { "01J8X1KBN4A1Y7MT6G98T16ZNR", "01J8X1KBN4PG51SNTYRBPTBVHH", "Informacijos sistemos", 1 },
+                    { "01J8X1KBN4A82C9F3GWTPNPBAE", "01J8X1KBN4J24F0W9Y0VYJ20MY", "Elektronikos inžinerija", 1 },
+                    { "01J8X1KBN4DC4KAGKRFY02BG2X", "01J8X1KBN4J24F0W9Y0VYJ20MY", "Elektronikos inžinerija", 2 },
+                    { "01J8X1KBN4M2A459YPTDPM75JY", "01J8X1KBN4P31VTJP709FK63D9", "Programų sistemos", 3 },
+                    { "01J8X1KBN4Q913BSYZVGXZRPM9", "01J8X1KBN4PG51SNTYRBPTBVHH", "Informacijos sistemos", 3 },
+                    { "01J8X1KBN4WA39JT8R57ZFM1GN", "01J8X1KBN4P31VTJP709FK63D9", "Programinės įrangos testavimas", 1 },
+                    { "01J8X1KBN4WWK4TG26K4CH2NSG", "01J8X1KBN4P31VTJP709FK63D9", "Programų sistemos", 2 },
+                    { "01J8X1KBN4XGFSHXRA2MJN36ED", "01J8X1KBN4PG51SNTYRBPTBVHH", "Informacijos sistemos", 2 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -446,6 +468,11 @@ namespace StudyPlannerSoft.Migrations
                 name: "IX_Lecturers_PositionId",
                 table: "Lecturers",
                 column: "PositionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlannedGroups_StudyProgramId",
+                table: "PlannedGroups",
+                column: "StudyProgramId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StudyPrograms_DepartmentId",

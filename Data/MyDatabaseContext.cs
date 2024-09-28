@@ -25,6 +25,8 @@ public class MyDatabaseContext(DbContextOptions<MyDatabaseContext> options) : Id
         StudyProgramEntityConfiguration.Configure(modelBuilder);
         SubjectEntityConfiguration.Configure(modelBuilder);
         DepartmentEntityConfiguration.Configure(modelBuilder);
+        PlannedGroupEntityConfiguration.Configure(modelBuilder);
+        
         
         SeedData.Initialize(modelBuilder);
     }

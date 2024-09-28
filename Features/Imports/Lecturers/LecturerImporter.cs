@@ -1,5 +1,5 @@
-﻿using System.Globalization;
-using OfficeOpenXml;
+﻿using System.Text;
+using ExcelDataReader;
 using StudyPlannerSoft.Data;
 using StudyPlannerSoft.Entities;
 
@@ -12,56 +12,70 @@ public class LecturerImporter
     public LecturerImporter(MyDatabaseContext dbContext)
     {
         _dbContext = dbContext;
-        ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
     }
 
     public IEnumerable<Lecturer> ImportFromExcel(Stream excelStream)
     {
-        
-        var lithuanianCulture = new CultureInfo("lt-LT");
         var lecturers = new List<Lecturer>();
 
-        using (var package = new ExcelPackage(excelStream))
+        using (var reader = ExcelReaderFactory.CreateReader(excelStream))
         {
-            var worksheet = package.Workbook.Worksheets[1];
-            var rowCount = worksheet.Dimension.Rows;
-
-            for (int row = 7; row <= rowCount; row++)
-            {
-                // Log department name
-                var departmentName = worksheet.Cells[row, 7].Text?.Trim();
-                Console.WriteLine($"Looking for department with short name: {departmentName}");
+            reader.NextResult(); // SECOND SHEET
             
-                var department = _dbContext.Departments.FirstOrDefault(dep => dep.ShortName == departmentName);
+            int currentRow = 0;
+
+           
+            while (reader.Read())
+            {
+                if (currentRow < 6)
+                {
+                    currentRow++;
+                    continue;
+                }
+                
+                var name = reader.GetValue(3)?.ToString()?.Trim();
+                var email = reader.GetValue(4)?.ToString()?.Trim();
+                var positionNameNormalized = reader.GetValue(5)?.ToString()?.Trim();
+                var departmentNameNormalized = reader.GetValue(6)?.ToString()?.Trim();
+
+                // Log the fetched values
+                Console.WriteLine($"Row {currentRow}: Name='{name}', Email='{email}', Position='{positionNameNormalized}', Department='{departmentNameNormalized}'");
+
+                if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(positionNameNormalized) || string.IsNullOrEmpty(departmentNameNormalized))
+                {
+                    Console.WriteLine("Skipping row due to missing data.");
+                    currentRow++;
+                    continue;
+                }
+
+                var department = _dbContext.Departments.FirstOrDefault(dep => dep.ShortName == departmentNameNormalized);
                 
                 if (department == null)
                 {
-                    Console.WriteLine($"Department not found for short name: {departmentName}");
-                    throw new KeyNotFoundException($"Department not found for short name: {departmentName}");
+                    Console.WriteLine($"Department not found for short name: {departmentNameNormalized}");
+                    throw new KeyNotFoundException($"Department not found for short name: {departmentNameNormalized}");
                 }
 
-                var positionName = worksheet.Cells[row, 6].Text?.Trim();
-                
-                Console.WriteLine($"Looking for position with name: {positionName}");
-
-                var position = _dbContext.Positions.FirstOrDefault(pos => pos.Name == positionName);
+                var position = _dbContext.Positions.FirstOrDefault(pos => pos.Name == positionNameNormalized);
 
                 if (position == null)
                 {
-                    Console.WriteLine($"Position not found for name: {positionName}");
-                    throw new KeyNotFoundException($"Position not found for name: {positionName}");
+                    Console.WriteLine($"Position not found for name: {positionNameNormalized}");
+                    throw new KeyNotFoundException($"Position not found for name: {positionNameNormalized}");
                 }
 
                 var lecturer = new Lecturer
                 {
                     Id = Ulid.NewUlid(),
-                    Name = worksheet.Cells[row, 4].Text,
-                    Email = worksheet.Cells[row, 5].Text,
+                    Name = name,
+                    Email = email,
                     PositionId = position.Id,
                     DepartmentId = department.Id
                 };
 
                 lecturers.Add(lecturer);
+                currentRow++;
             }
         }
 

@@ -19,6 +19,10 @@ public class StudyProgram
     public Ulid DepartmentId { get; set; }
     public Department Department { get; set; }
     public ICollection<Subject> Subjects { get; set; } = new List<Subject>();
+    
+    public ICollection<PlannedGroup> PlannedGroups { get; set; } = new List<PlannedGroup>();
+
+    
 }
 
 public static class StudyProgramEntityConfiguration

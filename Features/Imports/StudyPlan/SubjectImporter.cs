@@ -1,115 +1,132 @@
-﻿using OfficeOpenXml;
+﻿using System.Text;
+using ExcelDataReader;
 using StudyPlannerSoft.Data;
 using StudyPlannerSoft.Entities;
 
-namespace StudyPlannerSoft.Features.Imports.StudyPlan;
-
-public class SubjectImporter
+namespace StudyPlannerSoft.Features.Imports.StudyPlan
 {
-    private readonly MyDatabaseContext _dbContext;
-
-    public SubjectImporter(MyDatabaseContext dbContext)
+    public class SubjectImporter
     {
-        _dbContext = dbContext;
-        ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+        private readonly MyDatabaseContext _dbContext;
 
+        public SubjectImporter(MyDatabaseContext dbContext)
+        {
+            _dbContext = dbContext;
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance); // Required to support older Excel formats
+        }
+
+        public IEnumerable<Subject> ImportFromExcel(Stream excelStream)
+        {
+              var subjects = new List<Subject>();
+
+    using (var reader = ExcelReaderFactory.CreateReader(excelStream))
+    {
+        int currentRow = 0;
+
+        // Read through each row of the Excel file
+        while (reader.Read())
+        {
+            currentRow++;
+
+            // Start processing from row 7, assuming the first 6 rows are headers or irrelevant data
+            if (currentRow < 7) continue;
+
+            // Extract data from columns
+            string studyProgramName = reader.GetValue(0)?.ToString()?.Trim();
+            string studyProgramType = reader.GetValue(1)?.ToString()?.Trim();
+
+            // Skip empty lines
+            if (string.IsNullOrEmpty(studyProgramName) && string.IsNullOrEmpty(studyProgramType))
+            {
+                continue; // Skip empty rows
+            }
+
+            // Validate and convert timetable type
+            if (string.IsNullOrEmpty(studyProgramType) || !Enum.TryParse(studyProgramType, out StudyType timetableType))
+            {
+                Console.WriteLine($"Invalid timetable type '{studyProgramType}' in row {currentRow}.");
+                continue; // Skip this row instead of throwing an exception
+            }
+
+            // Find the corresponding StudyProgram
+            var studyProgram = _dbContext.StudyPrograms
+                .FirstOrDefault(sp => sp.Name == studyProgramName && sp.StudyType == timetableType);
+
+            if (studyProgram == null)
+            {
+                Console.WriteLine($"StudyProgram '{studyProgramName}' not found in row {currentRow}.");
+                continue; // Skip to the next row if the study program is not found
+            }
+
+            // Create a Subject entity and parse the remaining columns
+            var subject = new Subject
+            {
+                Name = reader.GetValue(2)?.ToString()?.Trim(),
+                Semester = Enum.TryParse<Semester>(reader.GetValue(3)?.ToString()?.Trim(), out var semester)
+                    ? semester
+                    : Semester.First,
+                SubjectType = Enum.TryParse<SubjectType>(reader.GetValue(4)?.ToString()?.Trim(), out var subjectType)
+                    ? subjectType
+                    : SubjectType.Mandatory,
+                LectureHours = double.TryParse(reader.GetValue(5)?.ToString(), out var lectureHours) 
+                    ? lectureHours 
+                    : 0,
+                PracticeHours = double.TryParse(reader.GetValue(6)?.ToString(), out var practiceHours) 
+                    ? practiceHours 
+                    : 0,
+                RemoteLectureHours = double.TryParse(reader.GetValue(7)?.ToString(), out var remoteLectureHours) 
+                    ? remoteLectureHours 
+                    : 0,
+                RemotePracticeHours = double.TryParse(reader.GetValue(8)?.ToString(), out var remotePracticeHours) 
+                    ? remotePracticeHours 
+                    : 0,
+                SelfStudyHours = double.TryParse(reader.GetValue(9)?.ToString(), out var selfStudyHours) 
+                    ? selfStudyHours 
+                    : 0,
+                Credits = int.TryParse(reader.GetValue(10)?.ToString(), out var credits) 
+                    ? credits 
+                    : 0,
+                EvaluationForm = reader.GetValue(11)?.ToString()?.Trim(),
+                Category = reader.GetValue(12)?.ToString()?.Trim(),
+                CategoryDescription = reader.GetValue(13)?.ToString()?.Trim(),
+                FinalProjectExamCount = double.TryParse(reader.GetValue(14)?.ToString(), out var finalProjectExamCount) 
+                    ? finalProjectExamCount 
+                    : 0,
+                OtherContactHoursCount = double.TryParse(reader.GetValue(15)?.ToString(), out var otherContactHoursCount) 
+                    ? otherContactHoursCount 
+                    : 0,
+                ConsultationCount = double.TryParse(reader.GetValue(16)?.ToString(), out var consultationCount) 
+                    ? consultationCount 
+                    : 0,
+                GradingNumberCount = double.TryParse(reader.GetValue(17)?.ToString(), out var gradingNumberCount) 
+                    ? gradingNumberCount 
+                    : 0,
+                HomeworkHoursCount = double.TryParse(reader.GetValue(18)?.ToString(), out var homeworkHoursCount) 
+                    ? homeworkHoursCount 
+                    : 0,
+                PracticeReportHoursCount = double.TryParse(reader.GetValue(19)?.ToString(), out var practiceReportHoursCount) 
+                    ? practiceReportHoursCount 
+                    : 0,
+                RemoteTeachingHoursCount = double.TryParse(reader.GetValue(20)?.ToString(), out var remoteTeachingHoursCount) 
+                    ? remoteTeachingHoursCount 
+                    : 0,
+                CourseWorkHoursCount = double.TryParse(reader.GetValue(21)?.ToString(), out var courseWorkHoursCount) 
+                    ? courseWorkHoursCount 
+                    : 0,
+                ExamHours = double.TryParse(reader.GetValue(22)?.ToString(), out var examHours) 
+                    ? examHours 
+                    : 0,
+                OtherNonContactCount = double.TryParse(reader.GetValue(23)?.ToString(), out var otherNonContactCount) 
+                    ? otherNonContactCount 
+                    : 0,
+                StudyProgramId = studyProgram.Id,
+            };
+
+            subjects.Add(subject);
+        }
     }
 
-
-    public IEnumerable<Subject> ImportFromExcel(Stream excelStream)
-    {
-        var subjects = new List<Subject>();
-
-        using (var package = new ExcelPackage(excelStream))
-        {
-            var worksheet = package.Workbook.Worksheets[0]; // Assuming the data is in the first sheet
-            var rowCount = worksheet.Dimension.Rows;
-
-            for (int row = 7; row <= rowCount; row++) // Start from row 2 to skip headers
-            {
-                string studyProgramName = worksheet.Cells[row, 1].Text;
-                string studyProgramType = worksheet.Cells[row, 2].Text;
-
-                if (!Enum.TryParse(studyProgramType, out StudyType timetableType))
-                {
-                    Console.WriteLine($"Invalid timetable type '{studyProgramType}' in row {row}.");
-                    throw new Exception($"Invalid timetable type '{studyProgramType}' in row {row}.");
-                }
-
-                var studyProgram = _dbContext.StudyPrograms
-                    .FirstOrDefault(sp => sp.Name == studyProgramName && sp.StudyType == timetableType);
-
-                if (studyProgram == null)
-                {
-                    Console.WriteLine($"StudyProgram '{studyProgramName}' not found.");
-                    throw new KeyNotFoundException($"StudyProgram '{studyProgramName}' not found.");
-                }
-
-                var subject = new Subject
-                {
-                    Name = worksheet.Cells[row, 3].Text,
-                    Semester = Enum.TryParse<Semester>(worksheet.Cells[row, 4].Text, out var semester)
-                        ? semester
-                        : Semester.First,
-                    SubjectType = Enum.TryParse<SubjectType>(worksheet.Cells[row, 5].Text, out var subjectType)
-                        ? subjectType
-                        : SubjectType.Mandatory,
-                    LectureHours = double.TryParse(worksheet.Cells[row, 6].Text, out var lectureHours)
-                        ? lectureHours
-                        : 0,
-                    PracticeHours = double.TryParse(worksheet.Cells[row, 7].Text, out var practiceHours)
-                        ? practiceHours
-                        : 0,
-                    RemoteLectureHours = double.TryParse(worksheet.Cells[row, 8].Text, out var remoteLectureHours)
-                        ? remoteLectureHours
-                        : 0,
-                    RemotePracticeHours = double.TryParse(worksheet.Cells[row, 9].Text, out var remotePracticeHours)
-                        ? remotePracticeHours
-                        : 0,
-                    SelfStudyHours = double.TryParse(worksheet.Cells[row, 10].Text, out var selfStudyHours)
-                        ? selfStudyHours
-                        : 0,
-                    Credits = int.TryParse(worksheet.Cells[row, 11].Text, out var credits) ? credits : 0,
-                    EvaluationForm = worksheet.Cells[row, 12].Text,
-                    Category = worksheet.Cells[row, 13].Text,
-                    CategoryDescription = worksheet.Cells[row, 14].Text,
-                    FinalProjectExamCount =
-                        double.TryParse(worksheet.Cells[row, 15].Text, out var finalProjectExamCount)
-                            ? finalProjectExamCount
-                            : 0,
-                    OtherContactHoursCount =
-                        double.TryParse(worksheet.Cells[row, 16].Text, out var otherContactHoursCount)
-                            ? otherContactHoursCount
-                            : 0,
-                    ConsultationCount = double.TryParse(worksheet.Cells[row, 17].Text, out var consultationCount)
-                        ? consultationCount
-                        : 0,
-                    GradingNumberCount = double.TryParse(worksheet.Cells[row, 18].Text, out var gradingNumberCount)
-                        ? gradingNumberCount
-                        : 0,
-                    HomeworkHoursCount = double.TryParse(worksheet.Cells[row, 19].Text, out var homeworkHoursCount)
-                        ? homeworkHoursCount
-                        : 0,
-                    PracticeReportHoursCount =
-                        double.TryParse(worksheet.Cells[row, 20].Text, out var practiceReportHoursCount)
-                            ? practiceReportHoursCount
-                            : 0,
-                    RemoteTeachingHoursCount =
-                        double.TryParse(worksheet.Cells[row, 21].Text, out var remoteTeachingHoursCount)
-                            ? remoteTeachingHoursCount
-                            : 0,
-                    CourseWorkHoursCount = double.TryParse(worksheet.Cells[row, 22].Text, out var courseWorkHoursCount)
-                        ? courseWorkHoursCount
-                        : 0,
-                    ExamHours = double.TryParse(worksheet.Cells[row, 23].Text, out var examHours) ? examHours : 0,
-                    OtherNonContactCount = double.TryParse(worksheet.Cells[row, 24].Text, out var otherNonContactCount)
-                        ? otherNonContactCount
-                        : 0,
-                    StudyProgramId = studyProgram.Id,
-                };
-                subjects.Add(subject);
-            }
+            return subjects;
         }
-        return subjects;
     }
 }

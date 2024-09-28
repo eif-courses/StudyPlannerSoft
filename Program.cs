@@ -4,9 +4,10 @@ using FastEndpoints.Swagger;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
-using OfficeOpenXml;
+
 using StudyPlannerSoft.Data;
 using StudyPlannerSoft.Features.Imports.Lecturers;
+using StudyPlannerSoft.Features.Imports.PlannedGroups;
 using StudyPlannerSoft.Features.Imports.StudyPlan;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -48,8 +49,11 @@ builder.Services.AddAuthenticationCookie(validFor: TimeSpan.FromDays(30), option
     options.Cookie.Path = "/"; 
 });
 
+
 builder.Services.AddScoped<SubjectImporter>();
 builder.Services.AddScoped<LecturerImporter>();
+builder.Services.AddScoped<PlannedGroupImporter>();
+
 
 builder.Services.AddAuthorization();
 builder.Services.AddFastEndpoints();
