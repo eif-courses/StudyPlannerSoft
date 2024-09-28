@@ -2,7 +2,7 @@
 using StudyPlannerSoft.Data;
 using StudyPlannerSoft.Entities;
 
-namespace StudyPlannerSoft.Features.Imports;
+namespace StudyPlannerSoft.Features.Imports.StudyPlan;
 
 public class SubjectImporter
 {
@@ -11,6 +11,8 @@ public class SubjectImporter
     public SubjectImporter(MyDatabaseContext dbContext)
     {
         _dbContext = dbContext;
+        ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
     }
 
 

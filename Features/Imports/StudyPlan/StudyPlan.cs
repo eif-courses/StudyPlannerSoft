@@ -1,25 +1,15 @@
-﻿using StudyPlannerSoft.Data;
-using FastEndpoints;
-namespace StudyPlannerSoft.Features.Imports;
+﻿using FastEndpoints;
+using StudyPlannerSoft.Data;
 
-
+namespace StudyPlannerSoft.Features.Imports.StudyPlan;
 
 internal sealed class ImportSubjectsRequest
 {
     public IFormFile File { get; set; }
 }
-internal sealed class StudyPlan : Endpoint<ImportSubjectsRequest>
+internal sealed class StudyPlan(SubjectImporter subjectImporter, MyDatabaseContext dbContext)
+    : Endpoint<ImportSubjectsRequest>
 {
-    
-    private readonly SubjectImporter _subjectImporter;
-    private readonly MyDatabaseContext _dbContext;
-
-    public StudyPlan(SubjectImporter subjectImporter, MyDatabaseContext dbContext)
-    {
-        _subjectImporter = subjectImporter;
-        _dbContext = dbContext;
-    }
-
     public override void Configure()
     {
         Post("imports/study-plan");
@@ -29,10 +19,10 @@ internal sealed class StudyPlan : Endpoint<ImportSubjectsRequest>
 
     public override async Task HandleAsync(ImportSubjectsRequest req, CancellationToken ct)
     {
-        var subjects = _subjectImporter.ImportFromExcel(req.File.OpenReadStream());
+        var subjects = subjectImporter.ImportFromExcel(req.File.OpenReadStream());
         
-        _dbContext.Subjects.AddRange(subjects);
-        await _dbContext.SaveChangesAsync(ct);
+        dbContext.Subjects.AddRange(subjects);
+        await dbContext.SaveChangesAsync(ct);
 
         await SendOkAsync(ct);
     }
