@@ -1,6 +1,7 @@
 ﻿using FastEndpoints;
 using StudyPlannerSoft.Data;
-namespace StudyPlannerSoft.Features.Imports.Lecturers;
+
+namespace StudyPlannerSoft.Features.Lecturers;
 
 internal sealed class ImportLecturersRequest
 {
@@ -10,14 +11,14 @@ internal sealed class ImportLecturersRequest
 internal sealed class ImportLecturers : Endpoint<ImportLecturersRequest>
 {
     private readonly MyDatabaseContext _dbContext;
-    private readonly LecturerImporter _lecturerImporter;
+    private readonly ImportLecturersService _importLecturersService;
     private readonly ILogger<ImportLecturers> _logger;
 
-    public ImportLecturers(MyDatabaseContext dbContext, LecturerImporter lecturerImporter,
+    public ImportLecturers(MyDatabaseContext dbContext, ImportLecturersService importLecturersService,
         ILogger<ImportLecturers> logger)
     {
         _dbContext = dbContext;
-        _lecturerImporter = lecturerImporter;
+        _importLecturersService = importLecturersService;
         _logger = logger;
     }
 
@@ -30,7 +31,7 @@ internal sealed class ImportLecturers : Endpoint<ImportLecturersRequest>
 
     public override async Task HandleAsync(ImportLecturersRequest req, CancellationToken ct)
     {
-        var lecturers = _lecturerImporter.ImportFromExcel(req.File.OpenReadStream());
+        var lecturers = _importLecturersService.ImportFromExcel(req.File.OpenReadStream());
         _dbContext.Lecturers.AddRange(lecturers);
         
         await _dbContext.SaveChangesAsync(ct);

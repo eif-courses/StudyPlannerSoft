@@ -1,6 +1,6 @@
 ﻿namespace StudyPlannerSoft.Features.InstitutionCards;
 
-public class LecturerCards
+public class GetLecturerCardByUser
 {
     
 }

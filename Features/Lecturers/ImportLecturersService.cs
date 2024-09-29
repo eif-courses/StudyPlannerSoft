@@ -3,13 +3,13 @@ using ExcelDataReader;
 using StudyPlannerSoft.Data;
 using StudyPlannerSoft.Entities;
 
-namespace StudyPlannerSoft.Features.Imports.Lecturers;
+namespace StudyPlannerSoft.Features.Lecturers;
 
-public class LecturerImporter
+public class ImportLecturersService
 {
     private readonly MyDatabaseContext _dbContext;
 
-    public LecturerImporter(MyDatabaseContext dbContext)
+    public ImportLecturersService(MyDatabaseContext dbContext)
     {
         _dbContext = dbContext;
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);

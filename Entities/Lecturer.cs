@@ -13,6 +13,10 @@ public class Lecturer
 
     public Ulid DepartmentId { get; set; }
     public Department Department { get; set; }
+    
+    public ICollection<PlannedGroup> PlannedGroups { get; set; } = new List<PlannedGroup>();
+
+    
 }
 
 public static class LecturerEntityConfiguration

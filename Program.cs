@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using Npgsql;
 
 using StudyPlannerSoft.Data;
-using StudyPlannerSoft.Features.Imports.Lecturers;
-using StudyPlannerSoft.Features.Imports.PlannedGroups;
-using StudyPlannerSoft.Features.Imports.StudyPlan;
+using StudyPlannerSoft.Features.Lecturers;
+using StudyPlannerSoft.Features.PlannedGroups;
+using StudyPlannerSoft.Features.Subjects;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,9 +50,9 @@ builder.Services.AddAuthenticationCookie(validFor: TimeSpan.FromDays(30), option
 });
 
 
-builder.Services.AddScoped<SubjectImporter>();
-builder.Services.AddScoped<LecturerImporter>();
-builder.Services.AddScoped<PlannedGroupImporter>();
+builder.Services.AddScoped<ImportSubjectsService>();
+builder.Services.AddScoped<ImportLecturersService>();
+builder.Services.AddScoped<ImportPlannedGroupsService>();
 
 
 builder.Services.AddAuthorization();

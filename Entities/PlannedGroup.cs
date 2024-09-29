@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Diagnostics.SymbolStore;
+using Microsoft.EntityFrameworkCore;
 
 namespace StudyPlannerSoft.Entities;
 
@@ -15,6 +16,10 @@ public class PlannedGroup
 
     public Ulid StudyProgramId { get; set; } 
     public StudyProgram StudyProgram { get; set; }
+    
+    public Ulid? LecturerId { get; set; } 
+    public Lecturer? Lecturer { get; set; }
+
 }
 
 
@@ -27,11 +32,14 @@ public static class PlannedGroupEntityConfiguration
             entity.Property(e => e.SubGroupCount)
                 .HasMaxLength(10) 
                 .HasDefaultValue("1");
-            
+
             entity.HasOne(e => e.StudyProgram)
                 .WithMany(sp => sp.PlannedGroups)
-                .HasForeignKey(e => e.StudyProgramId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey(e => e.StudyProgramId);
+
+            entity.HasOne(e => e.Lecturer)
+                .WithMany(sub => sub.PlannedGroups)
+                .HasForeignKey(p => p.LecturerId);
         });
     }
 }

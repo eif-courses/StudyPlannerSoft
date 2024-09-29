@@ -3,13 +3,13 @@ using ExcelDataReader;
 using StudyPlannerSoft.Data;
 using StudyPlannerSoft.Entities;
 
-namespace StudyPlannerSoft.Features.Imports.PlannedGroups;
+namespace StudyPlannerSoft.Features.PlannedGroups;
 
-public class PlannedGroupImporter
+public class ImportPlannedGroupsService
 {
     private readonly MyDatabaseContext _dbContext;
 
-    public PlannedGroupImporter(MyDatabaseContext dbContext)
+    public ImportPlannedGroupsService(MyDatabaseContext dbContext)
     {
         _dbContext = dbContext;
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance); 
