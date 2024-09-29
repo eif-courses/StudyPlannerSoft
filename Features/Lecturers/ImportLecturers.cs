@@ -24,7 +24,7 @@ internal sealed class ImportLecturers : Endpoint<ImportLecturersRequest>
 
     public override void Configure()
     {
-        Post("imports/lecturers");
+        Post("lecturers/import");
         AllowFileUploads();
         AllowAnonymous();
     }

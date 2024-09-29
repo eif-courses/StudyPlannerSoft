@@ -1,6 +1,6 @@
 ﻿namespace StudyPlannerSoft.Features.Institution;
 
-public class GetFaculties
+public class EditPositionById
 {
     
 }

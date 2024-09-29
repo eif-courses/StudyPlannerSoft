@@ -1,6 +1,6 @@
 ﻿namespace StudyPlannerSoft.Features.Plans;
 
-public class GetPlannedGroups
+public class ListAllLecturers
 {
     
 }
