@@ -15,6 +15,7 @@ public class Lecturer
     public Department Department { get; set; }
     
     public ICollection<PlannedGroup> PlannedGroups { get; set; } = new List<PlannedGroup>();
+    public ICollection<Subject> Subjects { get; set; } = new List<Subject>();
 
     
 }

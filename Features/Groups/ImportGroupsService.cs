@@ -53,9 +53,7 @@ public class ImportGroupsService
                     Console.WriteLine($"Study program not found: {studyProgram}");
                     throw new Exception("Study program not found");
                 }
-                var subgroupCountValue = reader.GetValue(9); // Get the value for SubGroupCount
-                Console.WriteLine($"SubGroupCount value read from Excel: {subgroupCountValue}"); // Debug output
-
+            
                 // Create and populate a new PlannedGroup object
                 var group = new PlannedGroup
                 {
@@ -66,7 +64,6 @@ public class ImportGroupsService
                         : Semester.First, // Default to First semester if parsing fails
                     Vf = int.TryParse(reader.GetValue(5)?.ToString(), out var vf) ? vf : 0, // Validate and parse Vf
                     Vnf = int.TryParse(reader.GetValue(6)?.ToString(), out var vnf) ? vnf : 0, // Validate and parse Vnf
-                    SubGroupCount = reader.GetValue(9)?.ToString()?.Trim(), // Sub-group count
                     StudyProgramId = studyProgramResult.Id // Foreign key to the study program
                 };
 

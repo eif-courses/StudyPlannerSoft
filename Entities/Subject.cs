@@ -53,6 +53,13 @@ public class Subject
     
     public Ulid StudyProgramId { get; set; } 
     public StudyProgram StudyProgram { get; set; }
+    
+    public Ulid? DepartmentId { get; set; }
+    public Department? Department { get; set; }
+
+    public ICollection<Lecturer> Lecturers { get; set; } = new List<Lecturer>();
+
+    
 }
 
 public static class SubjectEntityConfiguration
@@ -65,6 +72,16 @@ public static class SubjectEntityConfiguration
             .WithMany(sp => sp.Subjects)
             .HasForeignKey(s => s.StudyProgramId);
         
+        modelBuilder.Entity<Subject>()
+            .HasOne(s => s.Department)
+            .WithMany(d => d.Subjects)
+            .HasForeignKey(s => s.DepartmentId)
+            .IsRequired(false); 
+        
+        modelBuilder.Entity<Subject>()
+            .HasMany(s => s.Lecturers)
+            .WithMany(l => l.Subjects)
+            .UsingEntity(j => j.ToTable("SubjectLecturers"));
         
         modelBuilder.Entity<Subject>()
             .Property(d => d.Name)
