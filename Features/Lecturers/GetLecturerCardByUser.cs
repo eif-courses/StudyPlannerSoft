@@ -1,4 +1,4 @@
-﻿namespace StudyPlannerSoft.Features.InstitutionCards;
+﻿namespace StudyPlannerSoft.Features.Lecturers;
 
 public class GetLecturerCardByUser
 {

@@ -1,24 +1,24 @@
 ﻿using FastEndpoints;
 using StudyPlannerSoft.Data;
 
-namespace StudyPlannerSoft.Features.PlannedGroups;
+namespace StudyPlannerSoft.Features.Groups;
 
 internal sealed class ImportPlannedGroupsRequest
 {
     public IFormFile File { get; set; }
 }
 
-internal sealed class ImportPlannedGroups : Endpoint<ImportPlannedGroupsRequest>
+internal sealed class ImportGroups : Endpoint<ImportPlannedGroupsRequest>
 {
     private readonly MyDatabaseContext _dbContext;
-    private readonly ImportPlannedGroupsService _importPlannedGroupsService;
-    private readonly ILogger<ImportPlannedGroups> _logger;
+    private readonly ImportGroupsService _importGroupsService;
+    private readonly ILogger<ImportGroups> _logger;
 
-    public ImportPlannedGroups(MyDatabaseContext dbContext, ImportPlannedGroupsService importPlannedGroupsService,
-        ILogger<ImportPlannedGroups> logger)
+    public ImportGroups(MyDatabaseContext dbContext, ImportGroupsService importGroupsService,
+        ILogger<ImportGroups> logger)
     {
         _dbContext = dbContext;
-        _importPlannedGroupsService = importPlannedGroupsService;
+        _importGroupsService = importGroupsService;
         _logger = logger;
     }
 
@@ -31,7 +31,7 @@ internal sealed class ImportPlannedGroups : Endpoint<ImportPlannedGroupsRequest>
 
     public override async Task HandleAsync(ImportPlannedGroupsRequest req, CancellationToken ct)
     {
-        var groups = _importPlannedGroupsService.ImportFromExcel(req.File.OpenReadStream());
+        var groups = _importGroupsService.ImportFromExcel(req.File.OpenReadStream());
         _dbContext.PlannedGroups.AddRange(groups);
 
         await _dbContext.SaveChangesAsync(ct);

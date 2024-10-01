@@ -8,7 +8,6 @@ public static class SeedData
 {
     
     private const string AdminUserId = "01H6N7NV2P1KCVKY7F6EJH0FAF";
-    
     private const string AdminRoleId = "01H6N7NV1KTPB9QDZ7FYDJ3HHK";
     private const string DeputyRoleId = "01H6N7NV1JHYY7N2NFDYX4ATAP";
     private const string LecturerRoleId = "01H6N7NV1YTMCV8YPZC7QQGGG7";

@@ -1,4 +1,4 @@
-﻿namespace StudyPlannerSoft.Features.InstitutionCards;
+﻿namespace StudyPlannerSoft.Features.Faculties;
 
 public class FacultyCards
 {

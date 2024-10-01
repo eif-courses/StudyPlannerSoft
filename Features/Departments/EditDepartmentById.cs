@@ -1,4 +1,4 @@
-﻿namespace StudyPlannerSoft.Features.Institution;
+﻿namespace StudyPlannerSoft.Features.Departments;
 
 public class EditDepartmentById
 {

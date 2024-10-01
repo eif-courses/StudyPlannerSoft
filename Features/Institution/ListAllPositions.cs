@@ -1,4 +1,4 @@
-﻿namespace StudyPlannerSoft.Features.Lecturers;
+﻿namespace StudyPlannerSoft.Features.Institution;
 
 public class GetPositions
 {

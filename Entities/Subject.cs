@@ -30,9 +30,9 @@ public class Subject
     public double? RemoteLectureHours { get; set; }
     public double? RemotePracticeHours { get; set; }
     public double SelfStudyHours { get; set; }
-    public string Notes { get; set; } = string.Empty;
+    public string? Notes { get; set; } = string.Empty;
 
-    public int SubGroupsCount { get; set; } = 1;
+    public int SubGroupsCount { get; set; } = 1; // TODO Need TO REMOVE OR LEAVE  
     public int LecturesCount { get; set; } 
     public double FinalProjectExamCount { get; set; }
     public double? OtherContactHoursCount { get; set; }

@@ -1,13 +1,13 @@
+using System.Text.Json.Serialization;
 using FastEndpoints;
 using FastEndpoints.Security;
 using FastEndpoints.Swagger;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
-
 using StudyPlannerSoft.Data;
+using StudyPlannerSoft.Features.Groups;
 using StudyPlannerSoft.Features.Lecturers;
-using StudyPlannerSoft.Features.PlannedGroups;
 using StudyPlannerSoft.Features.Subjects;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,7 +25,6 @@ var npgsqlConnectionString = new NpgsqlConnectionStringBuilder
     Database = Environment.GetEnvironmentVariable("POSTGRES_DB"),
     SslMode = SslMode.Require
 };
-
 
 builder.Services.AddDbContext<MyDatabaseContext>(options =>
 {
@@ -46,13 +45,13 @@ builder.Services.AddAuthenticationCookie(validFor: TimeSpan.FromDays(30), option
     options.SlidingExpiration = true;
     options.Cookie.SameSite = SameSiteMode.None; // Allow cross-origin requests
     options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // Set to None for local development
-    options.Cookie.Path = "/"; 
+    options.Cookie.Path = "/";
 });
 
 
 builder.Services.AddScoped<ImportSubjectsService>();
 builder.Services.AddScoped<ImportLecturersService>();
-builder.Services.AddScoped<ImportPlannedGroupsService>();
+builder.Services.AddScoped<ImportGroupsService>();
 
 
 builder.Services.AddAuthorization();
@@ -71,12 +70,12 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 
-
 app.UseHttpsRedirection();
 app.UseCors("AllowSpecificOrigin");
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseFastEndpoints();
+
 app.UseSwaggerGen();
 
 app.Run();

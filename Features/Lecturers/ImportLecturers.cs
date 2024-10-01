@@ -8,6 +8,8 @@ internal sealed class ImportLecturersRequest
     public IFormFile File { get; set; }
 }
 
+
+
 internal sealed class ImportLecturers : Endpoint<ImportLecturersRequest>
 {
     private readonly MyDatabaseContext _dbContext;
