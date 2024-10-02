@@ -31,7 +31,7 @@ public class ListAllGroupsByLabel : Endpoint<RequestGroupsByLabel, List<PlannedG
             .Include(pg => pg.StudyProgram)
             .ThenInclude(sp => sp.Subjects)
             .Include(pg => pg.StudyProgram.Department)
-            .Where(pg => pg.LabelName == "") // TODO ADD LABEL PARAMETER LATER
+            .Where(pg => pg.LabelName == req.Label)
             .Select(pg => new PlannedGroupDto
             {
                 Id = pg.Id,
@@ -86,8 +86,58 @@ public class ListAllGroupsByLabel : Endpoint<RequestGroupsByLabel, List<PlannedG
             })
             .ToListAsync(ct);
 
+        var planSubjects = groups.SelectMany(g => g.Subjects.Select(s => new PlanSubject
+        {
+            Id = s.Id, // Include the Id property
+            Name = s.Name,
+            Semester = s.Semester,
+            Credits = s.Credits,
+            EvaluationForm = s.EvaluationForm,
+            Category = s.Category,
+            CategoryDescription = s.CategoryDescription,
+            SubjectType = s.SubjectType,
+            LectureHours = s.LectureHours,
+            PracticeHours = s.PracticeHours,
+            RemoteLectureHours = s.RemoteLectureHours,
+            RemotePracticeHours = s.RemotePracticeHours,
+            SelfStudyHours = s.SelfStudyHours,
+            SubGroupsCount = s.SubGroupsCount,
+            LecturesCount = s.LecturesCount,
+            FinalProjectExamCount = s.FinalProjectExamCount,
+            OtherContactHoursCount = s.OtherContactHoursCount,
+            ConsultationCount = s.ConsultationCount,
+            GradingNumberCount = s.GradingNumberCount,
+            GradingHoursCount = s.GradingHoursCount,
+            HomeworkHoursCount = s.HomeworkHoursCount,
+            PracticeReportHoursCount = s.PracticeReportHoursCount,
+            RemoteTeachingHoursCount = s.RemoteTeachingHoursCount,
+            CourseWorkHoursCount = s.CourseWorkHoursCount,
+            ExamHours = s.ExamHours,
+            OtherNonContactCount = s.OtherNonContactCount,
+            StudyProgramId = s.StudyProgramId,
+            DepartmentId = s.DepartmentId
+        })).ToList();
+
+        // Save the planned subjects to the database
+        await SavePlannedSubjects(planSubjects, ct);
+
         await SendAsync(groups, 200, ct);
     }
+    private async Task SavePlannedSubjects(IEnumerable<PlanSubject> planSubjects, CancellationToken ct)
+    {
+        // Assuming you have a DbSet<PlanSubject> in your DbContext
+        // for example: public DbSet<PlanSubject> PlanSubjects { get; set; }
+    
+        foreach (var planSubject in planSubjects)
+        {
+            // Add the plan subject to the context
+            await _context.PlanSubjects.AddAsync(planSubject, ct);
+        }
+
+        // Save all changes in the context to the database
+        await _context.SaveChangesAsync(ct);
+    }
+    
 }
 
 public class PlannedGroupDto
@@ -141,7 +191,6 @@ public class SubjectDto
     public double? ExamHours { get; set; }
     public double? OtherNonContactCount { get; set; }
     public Ulid StudyProgramId { get; set; }
-    
-    public Ulid? DepartmentId { get; set; } 
-    
+
+    public Ulid? DepartmentId { get; set; }
 }

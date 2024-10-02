@@ -14,6 +14,9 @@ public class MyDatabaseContext(DbContextOptions<MyDatabaseContext> options) : Id
     public DbSet<StudyProgram> StudyPrograms { get; set; }
     public DbSet<Subject> Subjects { get; set; }
     public DbSet<PlannedGroup> PlannedGroups { get; set; }
+    
+    public DbSet<Plan> Plans { get; set; }
+    public DbSet<PlanSubject> PlanSubjects { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -26,6 +29,9 @@ public class MyDatabaseContext(DbContextOptions<MyDatabaseContext> options) : Id
         SubjectEntityConfiguration.Configure(modelBuilder);
         DepartmentEntityConfiguration.Configure(modelBuilder);
         PlannedGroupEntityConfiguration.Configure(modelBuilder);
+        
+        PlanEntityConfiguration.Configure(modelBuilder);
+        PlanSubjectEntityConfiguration.Configure(modelBuilder);
         
         
         SeedData.Initialize(modelBuilder);
@@ -66,3 +72,4 @@ public class MyDatabaseContext(DbContextOptions<MyDatabaseContext> options) : Id
         }
     }
 }
+

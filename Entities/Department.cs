@@ -14,6 +14,7 @@ public class Department
 
     public ICollection<Lecturer> Lecturers { get; set; } = new List<Lecturer>();
     public ICollection<StudyProgram> StudyPrograms { get; set; } = new List<StudyProgram>();
+    public ICollection<PlanSubject> PlanSubjects { get; set; } = new List<PlanSubject>();
     public ICollection<Subject> Subjects { get; set; } = new List<Subject>();
 }
 
