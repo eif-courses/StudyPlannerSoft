@@ -30,6 +30,7 @@ public class ListAllGroupsByLabel : Endpoint<RequestGroupsByLabel, List<PlannedG
         var groups = await _context.PlannedGroups
             .Include(pg => pg.StudyProgram)
             .ThenInclude(sp => sp.Subjects)
+            .Include(pg => pg.StudyProgram.Department)
             .Where(pg => pg.LabelName == "") // TODO ADD LABEL PARAMETER LATER
             .Select(pg => new PlannedGroupDto
             {
@@ -79,7 +80,8 @@ public class ListAllGroupsByLabel : Endpoint<RequestGroupsByLabel, List<PlannedG
                         GradingNumberCount = s.GradingNumberCount,
                         RemoteLectureHours = s.RemoteLectureHours,
                         RemotePracticeHours = s.RemotePracticeHours,
-                        SelfStudyHours = s.SelfStudyHours
+                        SelfStudyHours = s.SelfStudyHours,
+                        DepartmentId = pg.StudyProgram.DepartmentId
                     }).ToList()
             })
             .ToListAsync(ct);
@@ -139,4 +141,7 @@ public class SubjectDto
     public double? ExamHours { get; set; }
     public double? OtherNonContactCount { get; set; }
     public Ulid StudyProgramId { get; set; }
+    
+    public Ulid? DepartmentId { get; set; } 
+    
 }
