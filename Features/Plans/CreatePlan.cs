@@ -3,35 +3,48 @@ using Microsoft.EntityFrameworkCore;
 using StudyPlannerSoft.Data;
 using StudyPlannerSoft.Entities;
 
-namespace StudyPlannerSoft.Features.Groups;
+namespace StudyPlannerSoft.Features.Plans;
 
-public class RequestGroupsByLabel
+public class CreatePlanRequest
 {
-    public string Label { get; set; } = string.Empty; // The label to filter by
+    public string? Label { get; set; } = string.Empty;
 }
 
-public class ListAllGroupsByLabel : Endpoint<RequestGroupsByLabel, List<PlannedGroupDto>>
+public class CreatePlan : Endpoint<CreatePlanRequest>
 {
     private readonly MyDatabaseContext _context;
 
-    public ListAllGroupsByLabel(MyDatabaseContext context)
+    public CreatePlan(MyDatabaseContext context)
     {
         _context = context;
     }
 
     public override void Configure()
     {
-        Get("/groups/all"); // Define the endpoint route
-        AllowAnonymous(); // Allow anonymous access
+        Post("/plans/create");
+        AllowAnonymous();
     }
 
-    public override async Task HandleAsync(RequestGroupsByLabel req, CancellationToken ct)
+    public override async Task HandleAsync(CreatePlanRequest req, CancellationToken ct)
     {
+
+
+        var planId = Ulid.NewUlid(); 
+        var planName = Ulid.NewUlid()+ req.Label;
+        var plan = new Plan
+        {
+            Id = planId,
+            Name = planName,
+            Label = req.Label
+        };
+        _context.Plans.Add(plan); 
+        await _context.SaveChangesAsync(ct); 
+        
         var groups = await _context.PlannedGroups
             .Include(pg => pg.StudyProgram)
             .ThenInclude(sp => sp.Subjects)
             .Include(pg => pg.StudyProgram.Department)
-            .Where(pg => pg.LabelName == "") // NEED TO ADD req.label
+            .Where(pg => pg.LabelName == "")// TODO ADD LABEL OR NOT DEPENDS
             .Select(pg => new PlannedGroupDto
             {
                 Id = pg.Id,
@@ -85,10 +98,10 @@ public class ListAllGroupsByLabel : Endpoint<RequestGroupsByLabel, List<PlannedG
                     }).ToList()
             })
             .ToListAsync(ct);
-
-        var planSubjects = groups.SelectMany(g => g.Subjects.Select(s => new PlanSubject
+        
+        var planSubjects = groups.SelectMany(g => g.Subjects.Select(s => new PlanSubjectDto
         {
-            Id = s.Id, // Include the Id property
+            Id = s.Id,
             Name = s.Name,
             Semester = s.Semester,
             Credits = s.Credits,
@@ -116,29 +129,54 @@ public class ListAllGroupsByLabel : Endpoint<RequestGroupsByLabel, List<PlannedG
             OtherNonContactCount = s.OtherNonContactCount,
             StudyProgramId = s.StudyProgramId,
             DepartmentId = s.DepartmentId,
-            // PlanId = 
+            PlanId = planId,
+            PlannedGroupId = g.Id
         })).ToList();
-
-        // Save the planned subjects to the database
+        
         await SavePlannedSubjects(planSubjects, ct);
-
-        await SendAsync(groups, 200, ct);
+        await SendAsync("Planas sėkmingai išsaugotas", 200, ct);
     }
-    private async Task SavePlannedSubjects(IEnumerable<PlanSubject> planSubjects, CancellationToken ct)
-    {
-        // Assuming you have a DbSet<PlanSubject> in your DbContext
-        // for example: public DbSet<PlanSubject> PlanSubjects { get; set; }
-    
-        foreach (var planSubject in planSubjects)
-        {
-            // Add the plan subject to the context
-            await _context.PlanSubjects.AddAsync(planSubject, ct);
-        }
 
-        // Save all changes in the context to the database
+    private async Task SavePlannedSubjects(List<PlanSubjectDto> planSubjects, CancellationToken ct)
+    {
+        var entities = planSubjects.Select(ps => new PlanSubject
+        {
+            Id = Ulid.NewUlid(),
+            Name = ps.Name,
+            Semester = ps.Semester,
+            Credits = ps.Credits,
+            EvaluationForm = ps.EvaluationForm,
+            Category = ps.Category,
+            CategoryDescription = ps.CategoryDescription,
+            SubjectType = ps.SubjectType,
+            LectureHours = ps.LectureHours,
+            PracticeHours = ps.PracticeHours,
+            RemoteLectureHours = ps.RemoteLectureHours,
+            RemotePracticeHours = ps.RemotePracticeHours,
+            SelfStudyHours = ps.SelfStudyHours,
+            SubGroupsCount = ps.SubGroupsCount,
+            LecturesCount = ps.LecturesCount,
+            FinalProjectExamCount = ps.FinalProjectExamCount,
+            OtherContactHoursCount = ps.OtherContactHoursCount,
+            ConsultationCount = ps.ConsultationCount,
+            GradingNumberCount = ps.GradingNumberCount,
+            GradingHoursCount = ps.GradingHoursCount,
+            HomeworkHoursCount = ps.HomeworkHoursCount,
+            PracticeReportHoursCount = ps.PracticeReportHoursCount,
+            RemoteTeachingHoursCount = ps.RemoteTeachingHoursCount,
+            CourseWorkHoursCount = ps.CourseWorkHoursCount,
+            ExamHours = ps.ExamHours,
+            OtherNonContactCount = ps.OtherNonContactCount,
+            StudyProgramId = ps.StudyProgramId,
+            DepartmentId = ps.DepartmentId,
+            PlanId = ps.PlanId,
+            PlannedGroupId = ps.PlannedGroupId
+        }).ToList();
+
+        await _context.PlanSubjects.AddRangeAsync(entities, ct);
         await _context.SaveChangesAsync(ct);
     }
-    
+
 }
 
 public class PlannedGroupDto
@@ -146,7 +184,7 @@ public class PlannedGroupDto
     public Ulid Id { get; set; } = Ulid.NewUlid();
     public string Name { get; set; } = string.Empty;
     public Semester Semester { get; set; }
-    public string? LabelName { get; set; } // If needed for your use case
+    public string? LabelName { get; set; } 
 
     public int? Vf { get; set; } = 0;
     public int? Vnf { get; set; } = 0;
@@ -194,4 +232,53 @@ public class SubjectDto
     public Ulid StudyProgramId { get; set; }
 
     public Ulid? DepartmentId { get; set; }
+}
+
+public class PlanSubjectDto
+{
+    public Ulid Id { get; set; } = Ulid.NewUlid();
+    public string Name { get; set; } = string.Empty;
+    public Semester Semester { get; set; } = Semester.First;
+    public int Credits { get; set; }
+    public string EvaluationForm { get; set; } = string.Empty;
+    public string? Category { get; set; } = string.Empty;
+    public string? CategoryDescription { get; set; } = string.Empty;
+    public SubjectType SubjectType { get; set; } = SubjectType.Mandatory;
+
+
+    // Kontaktines valandos
+
+    public double LectureHours { get; set; }
+    public double PracticeHours { get; set; }
+    public double? RemoteLectureHours { get; set; }
+    public double? RemotePracticeHours { get; set; }
+    public double SelfStudyHours { get; set; }
+
+    public int SubGroupsCount { get; set; } = 1; // TODO Need TO REMOVE OR LEAVE  
+    public int LecturesCount { get; set; }
+    public double FinalProjectExamCount { get; set; }
+    public double? OtherContactHoursCount { get; set; }
+    public double ConsultationCount { get; set; }
+
+    // Ne kontaktines valandos
+
+    public double GradingNumberCount { get; set; }
+    public double? GradingHoursCount { get; set; }
+
+    public double? HomeworkHoursCount { get; set; }
+    public double? PracticeReportHoursCount { get; set; }
+    public double? RemoteTeachingHoursCount { get; set; }
+    public double? CourseWorkHoursCount { get; set; }
+    public double? ExamHours { get; set; }
+
+    public double? OtherNonContactCount { get; set; }
+    
+    public Ulid StudyProgramId { get; set; }
+    public Ulid? DepartmentId { get; set; }
+    
+    public ICollection<Lecturer> Lecturers { get; set; } = new List<Lecturer>();
+    public Ulid? PlanId { get; set; }
+    public Ulid PlannedGroupId { get; set; }
+    
+    
 }

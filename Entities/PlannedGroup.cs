@@ -19,6 +19,11 @@ public class PlannedGroup
 
     public Ulid? LecturerId { get; set; }
     public Lecturer? Lecturer { get; set; }
+    
+    
+    public ICollection<PlanSubject> PlanSubjects { get; set; } = new List<PlanSubject>();
+    
+    
 }
 
 public static class PlannedGroupEntityConfiguration

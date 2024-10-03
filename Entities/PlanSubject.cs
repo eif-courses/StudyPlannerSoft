@@ -51,6 +51,11 @@ public class PlanSubject
     public ICollection<Lecturer> Lecturers { get; set; } = new List<Lecturer>();
     public Ulid? PlanId { get; set; }
     public Plan? Plan { get; set; }
+    
+    public Ulid? PlannedGroupId { get; set; }
+    public PlannedGroup? PlannedGroup { get; set; }
+    
+    
 }
 public static class PlanSubjectEntityConfiguration
 {
@@ -59,12 +64,18 @@ public static class PlanSubjectEntityConfiguration
             modelBuilder.Entity<PlanSubject>()
                 .HasOne(x => x.Plan)
                 .WithMany(s => s.PlanSubjects)
-                .HasForeignKey(p => p.PlanId);
+                .HasForeignKey(p => p.PlanId)
+                .OnDelete(DeleteBehavior.Cascade);
             
             modelBuilder.Entity<PlanSubject>()
                 .HasOne(s => s.StudyProgram)
                 .WithMany(x => x.PlanSubjects)
                 .HasForeignKey(st => st.StudyProgramId);
+            
+            modelBuilder.Entity<PlanSubject>()
+                .HasOne(s => s.PlannedGroup)
+                .WithMany(x => x.PlanSubjects)
+                .HasForeignKey(st => st.PlannedGroupId);
             
            modelBuilder.Entity<PlanSubject>()
                .HasOne(s => s.Department)
