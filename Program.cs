@@ -23,7 +23,7 @@ var npgsqlConnectionString = new NpgsqlConnectionStringBuilder
     Username = Environment.GetEnvironmentVariable("POSTGRES_USER"),
     Password = Environment.GetEnvironmentVariable("POSTGRES_PASSWORD"),
     Database = Environment.GetEnvironmentVariable("POSTGRES_DB"),
-    SslMode = SslMode.Require
+    SslMode = isDevelopment ? SslMode.Disable : SslMode.Require // DISABLE FOR LOCAL
 };
 
 builder.Services.AddDbContext<MyDatabaseContext>(options =>

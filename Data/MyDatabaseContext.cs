@@ -48,7 +48,7 @@ public class MyDatabaseContext(DbContextOptions<MyDatabaseContext> options) : Id
                 Username = Environment.GetEnvironmentVariable("POSTGRES_USER"),
                 Password = Environment.GetEnvironmentVariable("POSTGRES_PASSWORD"),
                 Database = Environment.GetEnvironmentVariable("POSTGRES_DB"),
-                SslMode = SslMode.Require
+                SslMode = SslMode.Disable, // TODO ENABLE IN PRODUCTION
             };
             optionsBuilder.UseNpgsql(npgsqlConnectionString.ConnectionString);
         }
