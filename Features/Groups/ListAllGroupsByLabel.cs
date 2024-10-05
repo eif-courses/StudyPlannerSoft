@@ -1,6 +1,7 @@
 ﻿using FastEndpoints;
 using Microsoft.EntityFrameworkCore;
 using StudyPlannerSoft.Data;
+using StudyPlannerSoft.Dto;
 using StudyPlannerSoft.Entities;
 
 namespace StudyPlannerSoft.Features.Groups;
@@ -86,7 +87,7 @@ public class ListAllGroupsByLabel : Endpoint<RequestGroupsByLabel, List<PlannedG
             })
             .ToListAsync(ct);
 
-        var planSubjects = groups.SelectMany(g => g.Subjects.Select(s => new PlanSubject
+        var planSubjects = groups.SelectMany(g => g.Subjects.Select(s => new PlannedSubject
         {
             Id = s.Id, // Include the Id property
             Name = s.Name,
@@ -124,7 +125,7 @@ public class ListAllGroupsByLabel : Endpoint<RequestGroupsByLabel, List<PlannedG
 
         await SendAsync(groups, 200, ct);
     }
-    private async Task SavePlannedSubjects(IEnumerable<PlanSubject> planSubjects, CancellationToken ct)
+    private async Task SavePlannedSubjects(IEnumerable<PlannedSubject> planSubjects, CancellationToken ct)
     {
         // Assuming you have a DbSet<PlanSubject> in your DbContext
         // for example: public DbSet<PlanSubject> PlanSubjects { get; set; }
@@ -132,7 +133,7 @@ public class ListAllGroupsByLabel : Endpoint<RequestGroupsByLabel, List<PlannedG
         foreach (var planSubject in planSubjects)
         {
             // Add the plan subject to the context
-            await _context.PlanSubjects.AddAsync(planSubject, ct);
+            await _context.PlannedSubjects.AddAsync(planSubject, ct);
         }
 
         // Save all changes in the context to the database
@@ -141,57 +142,57 @@ public class ListAllGroupsByLabel : Endpoint<RequestGroupsByLabel, List<PlannedG
     
 }
 
-public class PlannedGroupDto
-{
-    public Ulid Id { get; set; } = Ulid.NewUlid();
-    public string Name { get; set; } = string.Empty;
-    public Semester Semester { get; set; }
-    public string? LabelName { get; set; } // If needed for your use case
+// public class PlannedGroupDto
+// {
+//     public Ulid Id { get; set; } = Ulid.NewUlid();
+//     public string Name { get; set; } = string.Empty;
+//     public Semester Semester { get; set; }
+//     public string? LabelName { get; set; } // If needed for your use case
+//
+//     public int? Vf { get; set; } = 0;
+//     public int? Vnf { get; set; } = 0;
+//     public string? SubGroupCount { get; set; } = "1";
+//     public Ulid StudyProgramId { get; set; }
+//     public Ulid? LecturerId { get; set; }
+//
+//     public List<SubjectDto> Subjects { get; set; } = new List<SubjectDto>();
+// }
 
-    public int? Vf { get; set; } = 0;
-    public int? Vnf { get; set; } = 0;
-    public string? SubGroupCount { get; set; } = "1";
-    public Ulid StudyProgramId { get; set; }
-    public Ulid? LecturerId { get; set; }
-
-    public List<SubjectDto> Subjects { get; set; } = new List<SubjectDto>();
-}
-
-public class SubjectDto
-{
-    public Ulid Id { get; set; } = Ulid.NewUlid();
-    public string Name { get; set; } = string.Empty;
-    public Semester Semester { get; set; } = Semester.First;
-    public int Credits { get; set; }
-    public string EvaluationForm { get; set; } = string.Empty;
-    public string? Category { get; set; } = string.Empty;
-
-    public string? CategoryDescription { get; set; } = string.Empty;
-    public SubjectType SubjectType { get; set; } = SubjectType.Mandatory;
-
-    public double LectureHours { get; set; }
-    public double PracticeHours { get; set; }
-    public double? RemoteLectureHours { get; set; }
-    public double? RemotePracticeHours { get; set; }
-    public double SelfStudyHours { get; set; }
-
-    public int SubGroupsCount { get; set; } = 1;
-    public int LecturesCount { get; set; }
-    public double FinalProjectExamCount { get; set; }
-    public double? OtherContactHoursCount { get; set; }
-    public double ConsultationCount { get; set; }
-
-    // Ne kontaktines valandos
-
-    public double GradingNumberCount { get; set; }
-    public double? GradingHoursCount { get; set; }
-    public double? HomeworkHoursCount { get; set; }
-    public double? PracticeReportHoursCount { get; set; }
-    public double? RemoteTeachingHoursCount { get; set; }
-    public double? CourseWorkHoursCount { get; set; }
-    public double? ExamHours { get; set; }
-    public double? OtherNonContactCount { get; set; }
-    public Ulid StudyProgramId { get; set; }
-
-    public Ulid? DepartmentId { get; set; }
-}
+// public class SubjectDto
+// {
+//     public Ulid Id { get; set; } = Ulid.NewUlid();
+//     public string Name { get; set; } = string.Empty;
+//     public Semester Semester { get; set; } = Semester.First;
+//     public int Credits { get; set; }
+//     public string EvaluationForm { get; set; } = string.Empty;
+//     public string? Category { get; set; } = string.Empty;
+//
+//     public string? CategoryDescription { get; set; } = string.Empty;
+//     public SubjectType SubjectType { get; set; } = SubjectType.Mandatory;
+//
+//     public double LectureHours { get; set; }
+//     public double PracticeHours { get; set; }
+//     public double? RemoteLectureHours { get; set; }
+//     public double? RemotePracticeHours { get; set; }
+//     public double SelfStudyHours { get; set; }
+//
+//     public int SubGroupsCount { get; set; } = 1;
+//     public int LecturesCount { get; set; }
+//     public double FinalProjectExamCount { get; set; }
+//     public double? OtherContactHoursCount { get; set; }
+//     public double ConsultationCount { get; set; }
+//
+//     // Ne kontaktines valandos
+//
+//     public double GradingNumberCount { get; set; }
+//     public double? GradingHoursCount { get; set; }
+//     public double? HomeworkHoursCount { get; set; }
+//     public double? PracticeReportHoursCount { get; set; }
+//     public double? RemoteTeachingHoursCount { get; set; }
+//     public double? CourseWorkHoursCount { get; set; }
+//     public double? ExamHours { get; set; }
+//     public double? OtherNonContactCount { get; set; }
+//     public Ulid StudyProgramId { get; set; }
+//
+//     public Ulid? DepartmentId { get; set; }
+// }

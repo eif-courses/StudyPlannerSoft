@@ -21,7 +21,7 @@ public class PlannedGroup
     public Lecturer? Lecturer { get; set; }
     
     
-    public ICollection<PlanSubject> PlanSubjects { get; set; } = new List<PlanSubject>();
+    public ICollection<PlannedSubject> PlanSubjects { get; set; } = new List<PlannedSubject>();
     
     
 }

@@ -16,7 +16,7 @@ public class MyDatabaseContext(DbContextOptions<MyDatabaseContext> options) : Id
     public DbSet<PlannedGroup> PlannedGroups { get; set; }
     
     public DbSet<Plan> Plans { get; set; }
-    public DbSet<PlanSubject> PlanSubjects { get; set; }
+    public DbSet<PlannedSubject> PlannedSubjects { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

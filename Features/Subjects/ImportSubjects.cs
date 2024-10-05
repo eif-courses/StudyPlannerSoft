@@ -12,7 +12,7 @@ internal sealed class ImportSubjects(ImportSubjectsService importSubjectsService
 {
     public override void Configure()
     {
-        Post("subjects/import");
+        Post("/subjects/import");
         AllowFileUploads();
         AllowAnonymous();
     }
